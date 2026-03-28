@@ -1,0 +1,79 @@
+.footer {
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(to top, rgba(26, 5, 16, 0.9), transparent);
+}
+
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-hearts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.heart-mini {
+  color: rgba(212, 175, 55, 0.4);
+}
+
+.heart-main {
+  color: #ff1744;
+  filter: drop-shadow(0 0 10px rgba(255, 23, 68, 0.6));
+}
+
+.pulsing {
+  animation: heartPulse 2s infinite ease-in-out;
+}
+
+.footer-text {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.weds-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.8rem;
+  text-transform: lowercase;
+  margin: 0 0.5rem;
+  -webkit-text-fill-color: var(--text-main);
+  background: none;
+  opacity: 0.8;
+}
+
+.footer-copyright {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  opacity: 0.6;
+  letter-spacing: 1px;
+  margin-top: 2rem;
+}
+
+.inline-heart {
+  display: inline;
+  vertical-align: middle;
+  color: #ff1744;
+  margin: 0 2px;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@media (max-width: 768px) {
+  .footer-text {
+    font-size: 1.6rem;
+  }
+  
+  .weds-text {
+    font-size: 1.4rem;
+  }
+}

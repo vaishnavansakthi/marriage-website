@@ -1,0 +1,171 @@
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 10vh;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.intro-text {
+  font-family: var(--font-body);
+  letter-spacing: 4px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.couple-names {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin: 1rem 0 0.5rem;
+  text-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+}
+
+.weds-main {
+  font-family: 'Great Vibes', cursive;
+  color: #ff1744;
+  -webkit-text-fill-color: #ff1744;
+  background: none;
+  font-size: 0.7em;
+  margin: 0 0.5rem;
+  text-shadow: 0 0 10px rgba(255, 23, 68, 0.3);
+}
+
+.kavithai-wrapper {
+  margin: 1rem auto 2rem;
+  max-width: 80%;
+  position: relative;
+  z-index: 2;
+  padding: 0 1rem;
+}
+
+.kavithai-text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.kavithai-author {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold-accent);
+  margin-top: 0.5rem;
+  letter-spacing: 2px;
+  text-align: right;
+  opacity: 0.9;
+}
+
+.date-location {
+  margin: 1rem 0 3rem;
+}
+
+.date {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+}
+
+.location {
+  font-size: 1.1rem;
+  color: var(--gold-accent);
+  letter-spacing: 1px;
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  background: rgba(61, 18, 34, 0.5);
+  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.time {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--gold-light);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.time-separator {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold-accent);
+  margin-top: -1.5rem;
+  opacity: 0.5;
+}
+
+.scroll-hint {
+  margin-top: 5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  animation: bounce 2s infinite;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-hint:hover {
+  opacity: 1;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .kavithai-text {
+    font-size: 0.95rem;
+  }
+  .countdown {
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .time {
+    font-size: 2rem;
+  }
+  .time-separator {
+    font-size: 1.5rem;
+  }
+}

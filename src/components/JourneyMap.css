@@ -1,0 +1,134 @@
+.journey-map-section {
+  padding-bottom: 5rem;
+}
+
+.map-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(61, 18, 34, 0.3);
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.india-svg {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+}
+
+.tn-outline {
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.1));
+}
+
+.journey-path {
+  filter: drop-shadow(0 0 5px var(--gold-accent));
+}
+
+/* Scroll reveal triggers this animation */
+.map-container.active .journey-path {
+  animation: drawPath 3s forwards ease-out;
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pin-pulse {
+  fill: currentColor;
+  opacity: 0.3;
+  animation: pulsePin 2s infinite;
+}
+
+.map-pin.chennai { color: var(--gold-accent); }
+.map-pin.madurai { color: #ff1744; }
+.map-pin.bodi { color: var(--gold-accent); }
+
+@keyframes pulsePin {
+  0% { transform: scale(0.5); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.pin-label {
+  color: #fff;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.pin-label strong {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+}
+
+.pin-label span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.pin-label.highlight strong {
+  color: #ff1744;
+  text-shadow: 0 0 10px rgba(255, 23, 68, 0.4);
+}
+
+.pin-label.text-right {
+  text-align: right;
+  transform: translateX(-10px);
+}
+
+.journey-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.gold { background: var(--gold-accent); }
+.dot.red { background: #ff1744; }
+
+.legend-heart {
+  color: #ff1744;
+  animation: heartSmallPulse 1.5s infinite;
+}
+
+@keyframes heartSmallPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    padding: 1.5rem;
+  }
+  
+  .pin-label strong {
+    font-size: 0.75rem;
+  }
+  
+  .journey-legend {
+    gap: 1rem;
+  }
+}

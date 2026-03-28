@@ -1,0 +1,185 @@
+.blessings-section {
+  min-height: auto !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 2rem !important; /* Keep some top padding from previous section */
+  background: transparent;
+}
+
+.blessings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* --- Form --- */
+.blessing-form {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.input-icon.textarea-icon {
+  top: 18px;
+  transform: none;
+}
+
+.blessing-input {
+  width: 100%;
+  padding: 0.9rem 1rem 0.9rem 2.8rem;
+  background: rgba(42, 8, 21, 0.6);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  resize: none;
+}
+
+.blessing-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.blessing-input:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.blessing-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  background: transparent;
+  border: 2px solid var(--gold-accent);
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+
+.blessing-submit-btn:hover {
+  background: var(--gold-accent);
+  color: #1a0510;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.thank-you-msg {
+  text-align: center;
+  color: var(--gold-light);
+  font-style: italic;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* --- Blessings Wall --- */
+.blessings-wall {
+  text-align: center;
+}
+
+.wall-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.blessings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.blessing-card {
+  padding: 1.5rem;
+  text-align: left;
+  position: relative;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.blessing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.blessing-heart-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(255, 23, 68, 0.5);
+}
+
+.blessing-message {
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.blessing-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blessing-name {
+  color: var(--gold-light);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.blessing-date {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .blessing-form {
+    padding: 1.5rem;
+  }
+
+  .blessings-grid {
+    grid-template-columns: 1fr;
+  }
+}
