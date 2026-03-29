@@ -16,9 +16,11 @@ export function sendEvent(action, params = {}) {
 
 export function pageview(path) {
   if (typeof window === 'undefined' || !window.gtag) return;
+  const GTAG_ID = import.meta.env.VITE_GTAG_ID;
+  if (!GTAG_ID) return;
   try {
-    window.gtag('config', 'G-HF0XTDRYV8', { page_path: path });
-  } catch (e) {}
+    window.gtag('config', GTAG_ID, { page_path: path });
+  } catch {}
 }
 
 export default { sendEvent, pageview };
