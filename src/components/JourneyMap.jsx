@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Heart } from 'lucide-react';
 import { MapContainer, TileLayer, Polyline, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -7,16 +7,31 @@ import './JourneyMap.css';
 
 const JourneyMap = () => {
   // Coordinates: [lat, lng]
-  const locations = [
+  const locations = useMemo(() => [
     { name: 'Chennai', coords: [13.0827, 80.2707], desc: 'The Surprise', color: 'var(--gold-accent)' },
     { name: 'Madurai', coords: [9.9252, 78.1198], desc: 'The Engagement', color: '#ff1744' },
     { name: 'Bodinayakkanur', coords: [10.0033, 77.3670], desc: 'The Wedding', color: 'var(--gold-accent)' },
     { name: 'Bali', coords: [-8.65, 115.2167], desc: 'Trip', color: '#ff1744' },
-  ];
+  ], []);
 
   // main land route: only the India stops (exclude Bali so there's no land link to Bali)
   const route = locations.slice(0, 3).map(loc => loc.coords);
   const chennaiToBali = [locations[0].coords, locations[3].coords];
+
+  const mapRef = useRef(null);
+  const [planeActive, setPlaneActive] = useState(false);
+
+  useEffect(() => {
+    // when component mounts: zoom to Chennai then start plane animation
+    const chennai = locations[0].coords;
+    // wait for map to be ready
+    if (mapRef.current && typeof mapRef.current.setView === 'function') {
+      mapRef.current.setView(chennai, 8, { animate: true });
+    }
+
+    const t = setTimeout(() => setPlaneActive(true), 1400);
+    return () => clearTimeout(t);
+  }, [locations]);
 
   return (
     <section className="section journey-map-section" id="journey-map">
@@ -27,7 +42,13 @@ const JourneyMap = () => {
       </div>
 
       <div className="map-container reveal">
-        <MapContainer center={[10.5, 79.5]} zoom={6} scrollWheelZoom={false} className="leaflet-map">
+        <MapContainer
+          center={[10.5, 79.5]}
+          zoom={6}
+          scrollWheelZoom={false}
+          className="leaflet-map"
+          whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}
+        >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -59,7 +80,15 @@ const JourneyMap = () => {
           {/* Animated car for Chennai -> Bodinayakanur (land travel) */}
           <AnimatedVehicle positions={route} duration={9000} />
           {/* Animated plane for Chennai -> Bali flight */}
-          <AnimatedPlane positions={chennaiToBali} duration={14000} />
+          <AnimatedPlane positions={chennaiToBali} duration={14000} active={planeActive} onPosition={(latlng, progress) => {
+            // follow the plane: zoom from 8 -> 5 as it travels
+            if (!mapRef.current || typeof mapRef.current.setView !== 'function') return;
+            const startZoom = 8;
+            const endZoom = 5;
+            const zoom = startZoom + (endZoom - startZoom) * progress;
+            // use setView without animation for tight follow, avoid jitter
+            mapRef.current.setView(latlng, zoom, { animate: false });
+          }} />
         </MapContainer>
 
         <div className="journey-legend">
@@ -84,12 +113,13 @@ const JourneyMap = () => {
 export default JourneyMap;
 
 /* AnimatedPlane component: moves a DivIcon (plane emoji) along provided positions */
-function AnimatedPlane({ positions, duration = 8000 }) {
+function AnimatedPlane({ positions, duration = 8000, active = true, onPosition = null }) {
   const markerRef = useRef(null);
   const rafRef = useRef(null);
 
   useEffect(() => {
     if (!positions || positions.length < 2) return;
+    if (!active) return; // don't start animation until active
 
     // compute segment lengths (approx using haversine) and cumulative lengths
     function toRad(deg) { return deg * Math.PI / 180; }
@@ -149,10 +179,12 @@ function AnimatedPlane({ positions, duration = 8000 }) {
 
       if (markerRef.current && markerRef.current.setLatLng) {
         markerRef.current.setLatLng([lat, lng]);
+        // report position so parent can follow
+        if (typeof onPosition === 'function') onPosition([lat, lng], progress);
         // update icon with rotation
         const html = `<div class="plane-marker" style="transform: rotate(${bearing}deg)">✈️</div>`;
         const icon = L.divIcon({ html, className: '', iconSize: [30, 30], iconAnchor: [15, 15] });
-        try { markerRef.current.setIcon(icon); } catch (e) { /* ignore if not ready */ }
+        if (markerRef.current.setIcon) markerRef.current.setIcon(icon);
       }
 
       rafRef.current = requestAnimationFrame(step);
@@ -163,7 +195,7 @@ function AnimatedPlane({ positions, duration = 8000 }) {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [positions, duration]);
+  }, [positions, duration, active, onPosition]);
 
   // initial icon
   const initHtml = `<div class="plane-marker">✈️</div>`;
@@ -248,7 +280,7 @@ function AnimatedVehicle({ positions, duration = 9000 }) {
         markerRef.current.setLatLng([lat, lng]);
         const html = `<div class="vehicle-marker" style="transform: rotate(${bearing}deg)">🚗</div>`;
         const icon = L.divIcon({ html, className: '', iconSize: [26, 26], iconAnchor: [13, 13] });
-        try { markerRef.current.setIcon(icon); } catch (e) {}
+        if (markerRef.current.setIcon) markerRef.current.setIcon(icon);
       }
 
       rafRef.current = requestAnimationFrame(step);

@@ -1,4 +1,6 @@
 import { MapPin, Clock, Calendar, BookmarkPlus } from 'lucide-react';
+import mahalImg from '../assets/sandhiya mahal.webp';
+import templeImg from '../assets/temple.webp';
 import './Events.css';
 import { sendEvent } from '../utils/analytics';
 
@@ -40,6 +42,20 @@ const Events = () => {
 
       <div className="events-grid">
         <div className="event-card glass-card reveal">
+          <img 
+            src={mahalImg} 
+            alt="Mahal" 
+            style={{ 
+              width: '260px', 
+              height: '260px', 
+              objectFit: 'contain', 
+              background: '#222',
+              borderRadius: '12px', 
+              margin: '0 auto 0.75rem', 
+              display: 'block', 
+              boxShadow: '0 2px 8px rgba(0,0,0,0.10)'
+            }} 
+          />
           <div className="event-icon">
             <Clock size={32} color="var(--gold-accent)" />
           </div>
@@ -74,6 +90,20 @@ const Events = () => {
         </div>
 
         <div className="event-card glass-card reveal" style={{ transitionDelay: '0.2s' }}>
+          <img 
+            src={templeImg} 
+            alt="Temple" 
+            style={{ 
+              width: '260px', 
+              height: '260px', 
+              objectFit: 'contain', 
+              background: '#222',
+              borderRadius: '12px', 
+              margin: '0 auto 0.75rem', 
+              display: 'block', 
+              boxShadow: '0 2px 8px rgba(0,0,0,0.10)'
+            }} 
+          />
           <div className="event-icon">
             <Calendar size={32} color="var(--gold-accent)" />
           </div>
