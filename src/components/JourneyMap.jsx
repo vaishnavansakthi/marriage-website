@@ -94,7 +94,7 @@ const JourneyMap = () => {
             <foreignObject x="180" y="395" width="140" height="60">
               <div className="pin-label text-right">
                 <strong>Bali</strong>
-                <span>Honeymoon</span>
+                <span>Trip</span>
               </div>
             </foreignObject>
           </g>
@@ -111,7 +111,7 @@ const JourneyMap = () => {
           </div>
           <div className="legend-item">
             <Heart size={16} className="legend-heart" />
-            <span>Our Forever Destination (Bali)</span>
+            <span>Our Trip Destination (Bali)</span>
           </div>
         </div>
       </div>

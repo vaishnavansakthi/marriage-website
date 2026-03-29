@@ -4,6 +4,7 @@ import Story from './components/Story';
 import Gallery from './components/Gallery';
 import JourneyMap from './components/JourneyMap';
 import Events from './components/Events';
+import Vendors from './components/Vendors';
 import Blessings from './components/Blessings';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
@@ -24,7 +25,7 @@ function App() {
   useEffect(() => {
     if (loading) return;
     // Intersection Observer for scroll reveal animations
-    const observerCallback = (entries, observer) => {
+    const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
@@ -61,6 +62,7 @@ function App() {
         <JourneyMap />
         {/* <Gallery /> */}
         <Events />
+        <Vendors />
         <Blessings />
         <Footer />
         <MusicPlayer />
