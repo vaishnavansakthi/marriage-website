@@ -1,5 +1,6 @@
 import { MapPin, Clock, Calendar, BookmarkPlus } from 'lucide-react';
 import './Events.css';
+import { sendEvent } from '../utils/analytics';
 
 const Events = () => {
   const addToCalendar = (type) => {
@@ -20,6 +21,13 @@ const Events = () => {
     // Google Calendar Link
     const googleUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.start}/${event.end}&details=${encodeURIComponent(event.desc)}&location=${encodeURIComponent(event.location)}`;
     
+    // Analytics: record calendar add
+    sendEvent('add_to_calendar', {
+      event_category: 'events',
+      event_label: event.title,
+      value: type,
+    });
+
     window.open(googleUrl, '_blank');
   };
   return (
@@ -57,7 +65,7 @@ const Events = () => {
           </p>
 
           <div className="event-actions">
-            <a target="_blank" href="https://maps.app.goo.gl/8MCUj75FvA7ypdyL8" className="btn-link">View Map</a>
+            <a target="_blank" href="https://maps.app.goo.gl/8MCUj75FvA7ypdyL8" className="btn-link" onClick={() => sendEvent('view_map', { event_category: 'events', event_label: 'Reception Map' })} rel="noreferrer">View Map</a>
             <button onClick={() => addToCalendar('reception')} className="btn-calendar">
               <BookmarkPlus size={16} />
               <span>Add to Calendar</span>
@@ -91,7 +99,7 @@ const Events = () => {
           </p>
 
           <div className="event-actions">
-            <a target="_blank" href="https://maps.app.goo.gl/QigZo7WG7pWRv3Lr5" className="btn-link">View Map</a>
+            <a target="_blank" href="https://maps.app.goo.gl/QigZo7WG7pWRv3Lr5" className="btn-link" onClick={() => sendEvent('view_map', { event_category: 'events', event_label: 'Wedding Map' })} rel="noreferrer">View Map</a>
             <button onClick={() => addToCalendar('wedding')} className="btn-calendar">
               <BookmarkPlus size={16} />
               <span>Add to Calendar</span>
