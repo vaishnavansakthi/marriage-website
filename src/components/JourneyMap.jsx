@@ -33,6 +33,22 @@ const JourneyMap = () => {
             strokeDashoffset="500"
           />
 
+          {/* Flight route from Chennai to Bali with animated plane emoji */}
+          <path
+            id="flight-route"
+            className="flight-route"
+            d="M300,120 C305,200 320,300 330,420"
+            fill="none"
+            stroke="rgba(212,175,55,0.6)"
+            strokeWidth="2"
+            strokeDasharray="8 6"
+          />
+
+          {/* Plane emoji moving along the flight-route */}
+          <text className="plane-emoji">✈️
+            <animateMotion dur="4s" repeatCount="indefinite" rotate="auto" path="M300,120 C305,200 320,300 330,420" />
+          </text>
+
           {/* Location Pins */}
           
           {/* Chennai - Top Right */}
@@ -70,6 +86,18 @@ const JourneyMap = () => {
               </div>
             </foreignObject>
           </g>
+
+          {/* Bali - Honeymoon (represented off-map to the bottom-right) */}
+          <g className="map-pin bali">
+            {/* use a heart glyph so it matches the legend */}
+            <text x="330" y="420" className="bali-heart" textAnchor="middle" dominantBaseline="central">❤</text>
+            <foreignObject x="180" y="395" width="140" height="60">
+              <div className="pin-label text-right">
+                <strong>Bali</strong>
+                <span>Honeymoon</span>
+              </div>
+            </foreignObject>
+          </g>
         </svg>
 
         <div className="journey-legend">
@@ -83,7 +111,7 @@ const JourneyMap = () => {
           </div>
           <div className="legend-item">
             <Heart size={16} className="legend-heart" />
-            <span>Our Forever Destination</span>
+            <span>Our Forever Destination (Bali)</span>
           </div>
         </div>
       </div>

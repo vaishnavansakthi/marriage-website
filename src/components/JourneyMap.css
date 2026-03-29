@@ -27,6 +27,23 @@
   filter: drop-shadow(0 0 5px var(--gold-accent));
 }
 
+/* Flight route styling */
+.flight-route {
+  opacity: 0.95;
+  stroke: rgba(212, 175, 55, 0.7);
+  stroke-width: 2;
+  stroke-dasharray: 8 6;
+  filter: drop-shadow(0 0 6px rgba(212,175,55,0.15));
+}
+
+/* Plane emoji styling and small adjustments */
+.plane-emoji {
+  font-size: 18px;
+  transform-origin: center;
+  pointer-events: none;
+  dominant-baseline: central;
+}
+
 /* Scroll reveal triggers this animation */
 .map-container.active .journey-path {
   animation: drawPath 3s forwards ease-out;
@@ -47,6 +64,13 @@
 .map-pin.chennai { color: var(--gold-accent); }
 .map-pin.madurai { color: #ff1744; }
 .map-pin.bodi { color: var(--gold-accent); }
+.map-pin.bali { color: #ff1744; }
+
+.bali-heart {
+  font-size: 20px;
+  fill: #ff1744;
+  pointer-events: none;
+}
 
 @keyframes pulsePin {
   0% { transform: scale(0.5); opacity: 0.5; }
@@ -131,4 +155,14 @@
   .journey-legend {
     gap: 1rem;
   }
+}
+
+/* tweak Bali label on very small screens so it wraps nicely */
+@media (max-width: 420px) {
+  .map-pin.bali foreignObject {
+    width: 140px;
+    x: 160px;
+  }
+  .map-pin.bali .pin-label strong { font-size: 0.8rem; }
+  .map-pin.bali .pin-label span { font-size: 0.7rem; }
 }
