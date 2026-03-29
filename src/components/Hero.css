@@ -169,3 +169,30 @@
     font-size: 1.5rem;
   }
 }
+
+/* Very small screens: reduce timer width and tighten spacing */
+@media (max-width: 420px) {
+  .countdown {
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    margin-top: 1rem;
+    width: auto;
+    max-width: 320px; /* keep the timer compact */
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+  }
+
+  .time-block {
+    min-width: 44px; /* allow blocks to shrink */
+  }
+
+  .time {
+    font-size: 1.6rem;
+  }
+
+  .time-separator {
+    font-size: 1.2rem;
+    margin-top: -1rem;
+  }
+}

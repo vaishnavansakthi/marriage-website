@@ -11,6 +11,38 @@
   margin: 0 auto;
 }
 
+/* Ensure section header stays centered on small screens */
+.events-section .section-header {
+  width: 100%;
+  text-align: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  /* Stack grid to single column and reduce gaps so header visually centers */
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 0 0.6rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .events-section .section-header {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .events-section .section-header h2 {
+    font-size: 2rem;
+    line-height: 1.05;
+  }
+}
+
 .event-card {
   display: flex;
   flex-direction: column;
