@@ -1,0 +1,40 @@
+{
+  "name": "Vaishnavan & Nagadivya — A Wedding Celebration 💍",
+  "short_name": "Vaishnavan♥Nagadivya",
+  "description": "Join us for love, laughter, and a beautiful beginning — schedule, venue, photos, and wishes. 🎉🌺",
+  "icons": [
+    {
+      "src": "/couple-photo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/couple-photo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "start_url": "/?utm_source=web_app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#2A0815",
+  "background_color": "#3D1222",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "View Events",
+      "short_name": "Events",
+      "description": "See wedding events & maps",
+      "url": "/#events",
+      "icons": [{ "src": "/favicon.svg", "sizes": "96x96", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Trace Our Journey",
+      "short_name": "Journey",
+      "description": "Timeline & honeymoon destination",
+      "url": "/#journey-map",
+      "icons": [{ "src": "/favicon.svg", "sizes": "96x96", "type": "image/svg+xml" }]
+    }
+  ]
+}

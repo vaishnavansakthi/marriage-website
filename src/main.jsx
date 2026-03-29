@@ -28,6 +28,47 @@ function loadGtag(gtagId) {
 const GTAG_ID = import.meta.env.VITE_GTAG_ID;
 if (GTAG_ID) loadGtag(GTAG_ID);
 
+// Inject absolute social meta tags when VITE_SITE_URL is provided so crawlers see full URLs
+function injectSocialMeta(siteUrl) {
+  if (!siteUrl) return;
+  try {
+    const imagePath = '/social-share-1200x630.png';
+    const imageUrl = new URL(imagePath, siteUrl).toString();
+
+    const setMeta = (attr, value, isProperty = false) => {
+      let selector = isProperty ? `meta[property="${attr}"]` : `meta[name="${attr}"]`;
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        if (isProperty) el.setAttribute('property', attr); else el.setAttribute('name', attr);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', value);
+    };
+
+    // Open Graph
+    setMeta('og:url', siteUrl, true);
+    setMeta('og:image', imageUrl, true);
+    setMeta('og:image:secure_url', imageUrl, true);
+
+    // Twitter
+    setMeta('twitter:image', imageUrl, false);
+    // generic image_src
+    let imgSrc = document.head.querySelector('link[rel="image_src"]');
+    if (!imgSrc) {
+      imgSrc = document.createElement('link');
+      imgSrc.setAttribute('rel', 'image_src');
+      document.head.appendChild(imgSrc);
+    }
+    imgSrc.setAttribute('href', imageUrl);
+  } catch {
+    // ignore
+  }
+}
+
+const SITE_URL = import.meta.env.VITE_SITE_URL;
+if (SITE_URL) injectSocialMeta(SITE_URL);
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
