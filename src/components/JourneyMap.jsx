@@ -10,7 +10,7 @@ const JourneyMap = () => {
   const locations = [
     { name: 'Chennai', coords: [13.0827, 80.2707], desc: 'The Surprise', color: 'var(--gold-accent)' },
     { name: 'Madurai', coords: [9.9252, 78.1198], desc: 'The Engagement', color: '#ff1744' },
-    { name: 'Bodinayakanur', coords: [9.8576, 77.0307], desc: 'The Wedding', color: 'var(--gold-accent)' },
+    { name: 'Bodinayakkanur', coords: [10.0033, 77.3670], desc: 'The Wedding', color: 'var(--gold-accent)' },
     { name: 'Bali', coords: [-8.65, 115.2167], desc: 'Trip', color: '#ff1744' },
   ];
 
