@@ -15,7 +15,7 @@ const MusicPlayer = () => {
           title="Spotify track player"
           className="spotify-iframe"
           style={{ borderRadius: '12px' }}
-          src="https://open.spotify.com/embed/track/72YaGdQ4YJbGfUtdjfOu6B?utm_source=generator"
+          src="https://open.spotify.com/embed/track/55OWBVrrcsWEqs56IG8YIw?utm_source=generator"
           width="100%"
           frameBorder="0"
           allowFullScreen=""

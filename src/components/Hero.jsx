@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import './Hero.css';
 
+const KAVITHAI_QUOTE =
+  '"Nodi nodi aai sithari pona en manadhai serka vaika vandha penn nee dhaan endru tharindha pinbu en manam siragadiken ndradheyyy"';
+
 const Hero = () => {
+  const [kavithaiShown, setKavithaiShown] = useState('');
+  const [kavithaiComplete, setKavithaiComplete] = useState(false);
+  const kavithaiTimersRef = useRef({ start: null, tick: null });
+  const kavithaiCancelledRef = useRef(false);
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -34,6 +42,59 @@ const Hero = () => {
     return () => clearInterval(timer);
   }, [weddingDate]);
 
+  useEffect(() => {
+    kavithaiCancelledRef.current = false;
+
+    const reduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      setKavithaiShown(KAVITHAI_QUOTE);
+      setKavithaiComplete(true);
+      return undefined;
+    }
+
+    const startDelayMs = 800;
+    const msPerChar = 22;
+    const quote = KAVITHAI_QUOTE;
+    let index = 0;
+
+    const clearTimers = () => {
+      if (kavithaiTimersRef.current.start != null) {
+        window.clearTimeout(kavithaiTimersRef.current.start);
+        kavithaiTimersRef.current.start = null;
+      }
+      if (kavithaiTimersRef.current.tick != null) {
+        window.clearTimeout(kavithaiTimersRef.current.tick);
+        kavithaiTimersRef.current.tick = null;
+      }
+    };
+
+    const runTick = () => {
+      if (kavithaiCancelledRef.current) return;
+      index += 1;
+      if (index >= quote.length) {
+        setKavithaiShown(quote);
+        setKavithaiComplete(true);
+        kavithaiTimersRef.current.tick = null;
+        return;
+      }
+      setKavithaiShown(quote.slice(0, index));
+      kavithaiTimersRef.current.tick = window.setTimeout(runTick, msPerChar);
+    };
+
+    kavithaiTimersRef.current.start = window.setTimeout(() => {
+      kavithaiTimersRef.current.start = null;
+      if (kavithaiCancelledRef.current) return;
+      runTick();
+    }, startDelayMs);
+
+    return () => {
+      kavithaiCancelledRef.current = true;
+      clearTimers();
+    };
+  }, []);
+
   const scrollToStory = () => {
     const storySection = document.getElementById('story');
     if (storySection) {
@@ -48,11 +109,15 @@ const Hero = () => {
         <head>
           <meta charset="utf-8" />
           <title>Vaishnavan & Nagadivya - Invitation</title>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" />
           <style>
             body { font-family: Inter, Arial, sans-serif; background: #fff; color:#1a0510; margin:0; padding:32px; }
             .invite { max-width:900px; margin:0 auto; text-align:center; }
             .hero-img { width:100%; max-height:360px; object-fit:cover; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.25); }
-            .names { font-family: 'Cinzel', serif; font-size:48px; margin:20px 0 8px; color:#2a0815; }
+            .names-print { font-family: 'Cinzel', serif; margin:20px 0 12px; color:#2a0815; }
+            .np-role { font-size:11px; letter-spacing:0.35em; text-transform:uppercase; color:#888; font-family:Inter,sans-serif; margin-bottom:6px; }
+            .np-line { font-size:36px; margin:12px 0; line-height:1.15; }
+            .np-weds { font-family:'Great Vibes',cursive; font-size:32px; color:#e91e63; margin:4px 0 10px; text-transform:lowercase; position:relative; top:-6px; text-align:center; }
             .sub { font-size:18px; color:#6b6b6b; margin-bottom:18px; }
             .date { font-size:20px; font-weight:600; margin-bottom:6px; }
             .location { font-size:16px; color:#444; margin-bottom:24px; }
@@ -64,7 +129,11 @@ const Hero = () => {
         <body>
           <div class="invite">
             <img src="/couple-photo.jpg" alt="Vaishnavan and Nagadivya" class="hero-img" />
-            <div class="names">Vaishnavan <span style="font-size:.5em;color:#b88">weds</span> Nagadivya</div>
+            <div class="names-print">
+              <div class="np-line"><div class="np-role">Groom</div>Vaishnavan</div>
+              <div class="np-weds" aria-hidden="true">weds</div>
+              <div class="np-line"><div class="np-role">Bride</div>Nagadivya</div>
+            </div>
             <div class="sub">Together with their families</div>
 
             <div class="date">June 7, 2026</div>
@@ -99,15 +168,35 @@ const Hero = () => {
     <section className="section hero-section" id="home">
       <div className="hero-content reveal active">
         <p className="intro-text">TOGETHER WITH THEIR FAMILIES</p>
-        <h1 className="couple-names gold-text">
-          Vaishnavan <span className="weds-main">weds</span> Nagadivya
+        <h1 className="couple-names couple-names--animated">
+          <span className="name-line name-line--groom">
+            <span className="name-role">Groom</span>
+            <span className="name-person gold-text">Vaishnavan</span>
+          </span>
+          <span className="couple-names-weds-wrap" aria-hidden="true">
+            <span className="couple-names-weds">weds</span>
+          </span>
+          <span className="name-line name-line--bride">
+            <span className="name-role">Bride</span>
+            <span className="name-person gold-text">Nagadivya</span>
+          </span>
         </h1>
 
         <div className="kavithai-wrapper">
-          <p className="kavithai-text">
-            "Nodi nodi aai sithari pona en manadhai serka vaika vandha penn nee dhaan endru tharindha pinbu en manam siragadiken ndradheyyy"
+          <span className="kavithai-sr-only">
+            {KAVITHAI_QUOTE} — Vaishnavan
+          </span>
+          <p className="kavithai-text" aria-hidden="true">
+            <span className="kavithai-typewriter">{kavithaiShown}</span>
+            {!kavithaiComplete && (
+              <span className="kavithai-cursor" aria-hidden="true">
+                |
+              </span>
+            )}
           </p>
-          <p className="kavithai-author">- Vaishnavan</p>
+          {kavithaiComplete && (
+            <p className="kavithai-author">- Vaishnavan</p>
+          )}
         </div>
 
         <div className="date-location">

@@ -1,14 +1,16 @@
 .events-section {
   background: linear-gradient(to bottom, rgba(42, 8, 21, 0), rgba(61, 18, 34, 0.6));
+  overflow-x: hidden;
 }
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 3rem;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  min-width: 0;
 }
 
 /* Ensure section header stays centered on small screens */
@@ -43,6 +45,96 @@
   }
 }
 
+.event-card-image-btn {
+  padding: 0;
+  margin: 0 auto 0.75rem;
+  border: none;
+  background: #222;
+  border-radius: 12px;
+  cursor: zoom-in;
+  display: block;
+  width: 260px;
+  max-width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.event-card-image-btn:focus-visible {
+  outline: 2px solid var(--gold-accent);
+  outline-offset: 3px;
+}
+
+.event-card-image-btn img {
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Mobile: fluid width + natural aspect — no letterboxing in a square box */
+@media (max-width: 640px) {
+  .event-card-image-btn {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .event-card-image-btn img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .events-section .event-card.glass-card {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* Events lightbox: show entire image (no crop) within viewport */
+.events-lightbox.lightbox-overlay {
+  align-items: center;
+  justify-content: center;
+  padding: max(3.5rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(2rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
+
+.events-lightbox .lightbox-content {
+  max-width: min(96vw, 1400px);
+  max-height: none;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.events-lightbox .lightbox-content img {
+  width: auto;
+  height: auto;
+  max-width: min(96vw, 1400px);
+  max-height: calc(100vh - 8rem);
+  object-fit: contain;
+  object-position: center;
+}
+
+.events-lightbox .lightbox-caption {
+  position: static;
+  bottom: auto;
+  margin: 0;
+  padding: 0 0.5rem;
+  max-width: 100%;
+  text-align: center;
+}
+
 .event-card {
   display: flex;
   flex-direction: column;
@@ -50,6 +142,9 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .event-card::before {

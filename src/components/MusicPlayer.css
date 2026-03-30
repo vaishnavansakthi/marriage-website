@@ -39,6 +39,18 @@
   justify-content: center;
   cursor: pointer;
 }
+
+@media (min-width: 768px) {
+  .music-toggle-button {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .music-toggle-button {
+    display: none;
+  }
+}
+
 .music-toggle-button svg {
   color: var(--gold-light, #d4af37);
 }
@@ -78,7 +90,7 @@
 }
 
 /* Very small screens */
-@media (max-width: 420px) {
+@media (max-width: 620px) {
   .music-player-container {
     bottom: 16px;
     left: 12px;

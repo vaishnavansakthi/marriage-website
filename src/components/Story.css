@@ -23,27 +23,80 @@
   margin: 0 auto;
 }
 
-.story-hero-image {
+.story-section {
+  overflow-x: hidden;
+}
+
+.story-hero-image-btn {
   margin: 3rem auto 2rem;
   width: 90%;
   max-width: 600px;
+  padding: 0;
+  border: 2px solid rgba(212, 175, 55, 0.3);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  border: 2px solid rgba(212, 175, 55, 0.3);
+  background: rgba(20, 8, 14, 0.6);
+  cursor: zoom-in;
+  display: block;
   transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
-.story-hero-image:hover {
+.story-hero-image-btn:hover {
   transform: translateY(-5px);
   border-color: rgba(212, 175, 55, 0.8);
 }
 
-.story-hero-image img {
+.story-hero-image-btn:focus-visible {
+  outline: 2px solid var(--gold-accent);
+  outline-offset: 4px;
+}
+
+.story-hero-image-btn img {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Full-screen view: entire photo visible (same behavior as Events lightbox) */
+.story-lightbox.lightbox-overlay {
+  align-items: center;
+  justify-content: center;
+  padding: max(3.5rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(2rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
+
+.story-lightbox .lightbox-content {
+  max-width: min(96vw, 1400px);
+  max-height: none;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.story-lightbox .lightbox-content img {
+  width: auto;
+  height: auto;
+  max-width: min(96vw, 1400px);
+  max-height: calc(100vh - 8rem);
+  object-fit: contain;
+  object-position: center;
+}
+
+.story-lightbox .lightbox-caption {
+  position: static;
+  bottom: auto;
+  margin: 0;
+  padding: 0 0.5rem;
+  max-width: 100%;
+  text-align: center;
 }
 
 .timeline {

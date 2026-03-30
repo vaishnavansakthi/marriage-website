@@ -1,8 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 import './Story.css';
+import './Gallery.css';
+
+const STORY_HERO = {
+  src: '/couple-photo.jpg',
+  title: 'Vaishnavan & Nagadivya',
+};
 
 const Story = () => {
   const [showFullStory, setShowFullStory] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const openLightbox = () => {
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setLightboxOpen(false);
+        document.body.style.overflow = 'unset';
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightboxOpen]);
 
   return (
     <section className="section story-section" id="story">
@@ -10,10 +40,15 @@ const Story = () => {
         <h2 className="gold-text">Our Journey</h2>
         <div className="divider"></div>
         <p className="subtitle">Every love story is beautiful, but ours is our favorite.</p>
-        
-        <div className="story-hero-image">
-          <img src="/couple-photo.jpg" alt="Vaishnavan and Nagadivya" />
-        </div>
+
+        <button
+          type="button"
+          className="story-hero-image-btn"
+          onClick={openLightbox}
+          aria-label="View photo full size"
+        >
+          <img src={STORY_HERO.src} alt="Vaishnavan and Nagadivya" />
+        </button>
       </div>
 
       <div className="timeline">
@@ -39,8 +74,8 @@ const Story = () => {
           <div className="timeline-dot"></div>
           <div className="timeline-content right glass-card">
             <span className="timeline-date">February 22, 2026</span>
-            <h3>The Engagement</h3>
-            <p>We celebrated our official engagement in Madurai, joyously surrounded by all our family members. With their heartfelt blessings, our two families formally became one!</p>
+            <h3>Flowering Ceremony</h3>
+            <p>We celebrated our official Flowering Ceremony in Madurai, joyously surrounded by all our family members. With their heartfelt blessings, our two families formally became one!</p>
           </div>
         </div>
 
@@ -72,6 +107,18 @@ const Story = () => {
           <button className="expand-story-btn" onClick={() => setShowFullStory(true)}>
             Unfold Our Next Chapter
           </button>
+        </div>
+      )}
+
+      {lightboxOpen && (
+        <div className="lightbox-overlay active story-lightbox" onClick={closeLightbox}>
+          <button type="button" className="lightbox-close" onClick={closeLightbox} aria-label="Close full size image">
+            <X size={32} />
+          </button>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img src={STORY_HERO.src} alt="" />
+            <p className="lightbox-caption">{STORY_HERO.title}</p>
+          </div>
         </div>
       )}
     </section>

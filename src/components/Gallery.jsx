@@ -7,7 +7,7 @@ const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    { url: 'https://images.unsplash.com/photo-1621112904887-419379ce6824?auto=format&fit=crop&q=80&w=1200', title: 'The Engagement' },
+    { url: 'https://images.unsplash.com/photo-1621112904887-419379ce6824?auto=format&fit=crop&q=80&w=1200', title: 'Flowering Ceremony' },
     { url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1200', title: 'Casual Moments' },
     { url: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1200', title: 'A Beautiful Day' },
     { url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1200', title: 'Celebrations' },

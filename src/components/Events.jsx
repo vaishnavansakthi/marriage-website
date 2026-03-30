@@ -1,16 +1,55 @@
-import { MapPin, Clock, Calendar, BookmarkPlus } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { MapPin, Clock, Calendar, BookmarkPlus, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import mahalImg from '../assets/sandhiya mahal.webp';
 import templeImg from '../assets/temple.webp';
 import './Events.css';
+import './Gallery.css';
 import { sendEvent } from '../utils/analytics';
 
+const EVENT_IMAGES = [
+  { src: mahalImg, title: 'Reception — Sandhiyas Mahal' },
+  { src: templeImg, title: 'Wedding — Arulmigu Sri Subramaniya Swamy Temple' },
+];
+
 const Events = () => {
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    setLightboxIndex(null);
+    document.body.style.overflow = 'unset';
+  };
+
+  const nextImg = () => {
+    setLightboxIndex((i) => (i + 1) % EVENT_IMAGES.length);
+  };
+
+  const prevImg = () => {
+    setLightboxIndex((i) => (i - 1 + EVENT_IMAGES.length) % EVENT_IMAGES.length);
+  };
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setLightboxIndex(null);
+        document.body.style.overflow = 'unset';
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightboxIndex]);
+
   const addToCalendar = (type) => {
     const event = type === 'reception' ? {
       title: "Vaishnavan & Nagadivya - Wedding Reception",
       start: "20260606T180000",
       end: "20260606T220000",
-      location: "Sandhiya Mahal, Bodinayakanur",
+      location: "Sandhiyas Mahal, Bodinayakanur",
       desc: "Join us for an evening of joy and celebration!"
     } : {
       title: "Vaishnavan & Nagadivya - Wedding Ceremony",
@@ -42,24 +81,18 @@ const Events = () => {
 
       <div className="events-grid">
         <div className="event-card glass-card reveal">
-          <img 
-            src={mahalImg} 
-            alt="Mahal" 
-            style={{ 
-              width: '260px', 
-              height: '260px', 
-              objectFit: 'contain', 
-              background: '#222',
-              borderRadius: '12px', 
-              margin: '0 auto 0.75rem', 
-              display: 'block', 
-              boxShadow: '0 2px 8px rgba(0,0,0,0.10)'
-            }} 
-          />
+          <button
+            type="button"
+            className="event-card-image-btn"
+            onClick={() => openLightbox(0)}
+            aria-label="View reception venue photo full size"
+          >
+            <img src={mahalImg} alt="" />
+          </button>
           <div className="event-icon">
             <Clock size={32} color="var(--gold-accent)" />
           </div>
-          <h3>Reception</h3>
+          <h3>Engagement</h3>
 
           <div className="event-details">
             <div className="detail-item">
@@ -72,7 +105,7 @@ const Events = () => {
             </div>
             <div className="detail-item">
               <MapPin size={16} />
-              <span>Sandhiya Mahal, Bodinayakanur</span>
+              <span>Sandhiyas Mahal, Bodinayakanur</span>
             </div>
           </div>
 
@@ -90,20 +123,14 @@ const Events = () => {
         </div>
 
         <div className="event-card glass-card reveal" style={{ transitionDelay: '0.2s' }}>
-          <img 
-            src={templeImg} 
-            alt="Temple" 
-            style={{ 
-              width: '260px', 
-              height: '260px', 
-              objectFit: 'contain', 
-              background: '#222',
-              borderRadius: '12px', 
-              margin: '0 auto 0.75rem', 
-              display: 'block', 
-              boxShadow: '0 2px 8px rgba(0,0,0,0.10)'
-            }} 
-          />
+          <button
+            type="button"
+            className="event-card-image-btn"
+            onClick={() => openLightbox(1)}
+            aria-label="View wedding temple photo full size"
+          >
+            <img src={templeImg} alt="" />
+          </button>
           <div className="event-icon">
             <Calendar size={32} color="var(--gold-accent)" />
           </div>
@@ -137,6 +164,34 @@ const Events = () => {
           </div>
         </div>
       </div>
+
+      {lightboxIndex !== null && (
+        <div className="lightbox-overlay active events-lightbox" onClick={closeLightbox}>
+          <button type="button" className="lightbox-close" onClick={closeLightbox} aria-label="Close full size image">
+            <X size={32} />
+          </button>
+          <button
+            type="button"
+            className="lightbox-nav prev"
+            onClick={(e) => { e.stopPropagation(); prevImg(); }}
+            aria-label="Previous image"
+          >
+            <ChevronLeft size={48} />
+          </button>
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img src={EVENT_IMAGES[lightboxIndex].src} alt="" />
+            <p className="lightbox-caption">{EVENT_IMAGES[lightboxIndex].title}</p>
+          </div>
+          <button
+            type="button"
+            className="lightbox-nav next"
+            onClick={(e) => { e.stopPropagation(); nextImg(); }}
+            aria-label="Next image"
+          >
+            <ChevronRight size={48} />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

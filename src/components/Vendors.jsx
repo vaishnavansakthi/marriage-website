@@ -4,10 +4,10 @@ import './Vendors.css';
 const vendors = [
   {
     category: 'Mahal / Venue',
-    vendorName: 'Sandhiya Mahal',
+    vendorName: 'Sandhiyas Mahal',
     contactName: '',
     phone: '+91 95979 79632',
-    email: 'sandhiyamahal@example.com',
+    email: 'sandhiyasmahal@example.com',
     instagram: '',
     youtube: '',
     notes: 'Event coordination and mahal arrangements for the wedding reception'
