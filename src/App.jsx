@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Hero from './components/Hero';
 import Story from './components/Story';
-import Gallery from './components/Gallery';
+import FamilyTree from './components/FamilyTree';
 import JourneyMap from './components/JourneyMap';
 import Events from './components/Events';
 import Vendors from './components/Vendors';
@@ -59,6 +59,7 @@ function App() {
       <div className="content-wrapper">
         <Hero />
         <Story />
+        <FamilyTree />
         <JourneyMap />
         {/* <Gallery /> */}
         <Events />
