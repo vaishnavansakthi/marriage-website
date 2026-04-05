@@ -1,6 +1,6 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text, Float, PerspectiveCamera, Stars, Billboard, MeshDistortMaterial, MeshWobbleMaterial } from '@react-three/drei';
+import { OrbitControls, Text, Float, PerspectiveCamera, Stars, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 const NODE_RADIUS = 0.5;
@@ -15,7 +15,10 @@ const familyData = {
       children: [
         { name: "Muthukrishnan\n(Father)" },
         { name: "Chellamani\n(Mother)" },
-        { name: "Sowmiya\n(Sister)" }
+        { 
+          name: "Sowmiya\n(Sister)",
+          children: [{ name: "Vishagan\n(Son)" }]
+        }
       ]
     },
     {
@@ -27,6 +30,18 @@ const familyData = {
       ]
     }
   ]
+};
+
+const getEmoji = (name) => {
+  const n = name.toUpperCase();
+  if (n.includes("GROOM") && n.includes("FAMILY")) return "👑"; // King/Groom Side
+  if (n.includes("BRIDE") && n.includes("FAMILY")) return "👸"; // Queen/Bride Side
+  if (n.includes("FATHER")) return "👨";
+  if (n.includes("MOTHER")) return "👩";
+  if (n.includes("SISTER")) return "👧";
+  if (n.includes("SON")) return "👦";
+  if (n.includes("ROOTS")) return "🌳";
+  return "👤";
 };
 
 function Connection({ start, end }) {
@@ -41,22 +56,36 @@ function Connection({ start, end }) {
   );
 }
 
-function TreeNode({ node, position, level = 0 }) {
+function TreeNode({ node, position, level = 0, isGlobalExpanded = false }) {
   const [expanded, setExpanded] = useState(level === 0);
   const [hovered, setHovered] = useState(false);
-  const meshRef = useRef();
   const groupRef = useRef();
   const childrenRef = useRef();
+  const emojiRef = useRef();
+
+  useEffect(() => {
+    if (isGlobalExpanded) {
+      setExpanded(true);
+    } else if (level !== 0) {
+      setExpanded(false);
+    }
+  }, [isGlobalExpanded, level]);
+
+  const glowColor = useMemo(() => {
+    const n = node.name.toUpperCase();
+    if (n.includes("GROOM") && n.includes("FAMILY")) return "#FFD700"; // Bright Gold
+    if (n.includes("BRIDE") && n.includes("FAMILY")) return "#FF69B4"; // Hot Pink for Queen side
+    if (expanded) return "#00FFFF"; // Cyan when expanded for others
+    return "#ffb6c1"; // Default
+  }, [node.name, expanded]);
 
   useFrame((state, delta) => {
-    if (meshRef.current) {
-      const targetScale = hovered ? 1.4 : 1;
-      meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
-      meshRef.current.rotation.y += delta * 0.5;
+    if (emojiRef.current) {
+      const targetScale = hovered ? 1.5 : 1;
+      emojiRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
     }
 
     if (childrenRef.current) {
-      // Toggle children visibility based on expanded state
       childrenRef.current.visible = expanded;
     }
   });
@@ -82,7 +111,6 @@ function TreeNode({ node, position, level = 0 }) {
     const count = node.children?.length || 0;
     if (count === 0) return [];
 
-    // Root level gets a much larger spread
     const spreadFactor = level === 0 ? SPREAD_WIDTH : SPREAD_WIDTH * 0.4 / (level + 0.5);
     const totalWidth = (count - 1) * spreadFactor;
     const offset = totalWidth / 2;
@@ -96,33 +124,33 @@ function TreeNode({ node, position, level = 0 }) {
 
   return (
     <group ref={groupRef}>
-      <Float speed={3} rotationIntensity={1} floatIntensity={2}>
+      <Float speed={3} rotationIntensity={0.5} floatIntensity={1}>
         <group position={position}>
-          {/* Outer Glow / Halo */}
-          <mesh visible={hovered || expanded} scale={[1.5, 1.5, 1.5]}>
-            <sphereGeometry args={[NODE_RADIUS, 32, 32]} />
-            <meshBasicMaterial
-              color={expanded ? "#ff1493" : "#ffb6c1"}
-              transparent
-              opacity={hovered ? 0.3 : 0.1}
-            />
-          </mesh>
-
-          <mesh
-            ref={meshRef}
+          <Billboard
             onPointerOver={handlePointerOver}
             onPointerOut={handlePointerOut}
             onClick={handleClick}
           >
-            <sphereGeometry args={[NODE_RADIUS, 32, 32]} />
-            <meshStandardMaterial
-              color={expanded ? "#ff1493" : "#ffb6c1"}
-              emissive={expanded ? "#ff1493" : "#ffb6c1"}
-              emissiveIntensity={0.5}
-            />
-          </mesh>
+            <Text
+              ref={emojiRef}
+              fontSize={1.2}
+              anchorX="center"
+              anchorY="middle"
+            >
+              {getEmoji(node.name)}
+            </Text>
+            {/* Soft glow behind emoji */}
+            <mesh scale={[2.5, 2.5, 2.5]} position={[0, 0, -0.1]}>
+              <planeGeometry args={[1, 1]} />
+              <meshBasicMaterial 
+                color={glowColor} 
+                transparent 
+                opacity={hovered ? 0.4 : 0.2} 
+              />
+            </mesh>
+          </Billboard>
 
-          <Billboard position={[0, NODE_RADIUS + 1.2, 0]}>
+          <Billboard position={[0, -1.2, 0]}>
             <Text
               fontSize={0.45}
               color="white"
@@ -149,6 +177,7 @@ function TreeNode({ node, position, level = 0 }) {
               node={child}
               position={childrenPositions[i]}
               level={level + 1}
+              isGlobalExpanded={isGlobalExpanded}
             />
           </group>
         ))}
@@ -158,11 +187,14 @@ function TreeNode({ node, position, level = 0 }) {
 }
 
 export default function FamilyTree() {
+  const [isGlobalExpanded, setIsGlobalExpanded] = useState(false);
+
   return (
     <section className="family-tree-section reveal" style={{ padding: '80px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '3rem', color: '#ff1493', fontFamily: 'serif' }}>Family Heritage</h2>
-        <p style={{ color: '#666', fontSize: '1.2rem' }}>Discover the roots that brought us together</p>
+      <div className="section-header reveal">
+        <h2 className="gold-text">Family Heritage</h2>
+        <div className="divider"></div>
+        <p className="subtitle">Discover the roots that brought us together</p>
       </div>
 
       <div style={{ width: '100%', height: '700px', background: 'radial-gradient(circle, #2c1624 0%, #000000 100%)', borderRadius: '40px', overflow: 'hidden', position: 'relative', boxShadow: '0 30px 60px rgba(0,0,0,0.4)', border: '1px solid rgba(255,105,180,0.2)' }}>
@@ -179,15 +211,32 @@ export default function FamilyTree() {
           <pointLight position={[10, 10, 10]} intensity={2} color="#ff69b4" />
           <spotLight position={[-10, 10, 10]} angle={0.2} penumbra={1} intensity={3} color="#ffffff" castShadow />
 
-          <TreeNode node={familyData} position={[0, 5, 0]} />
+          <TreeNode node={familyData} position={[0, 5, 0]} isGlobalExpanded={isGlobalExpanded} />
 
           <Stars radius={100} depth={50} count={7000} factor={4} saturation={0} fade speed={1} />
         </Canvas>
 
         <div style={{ position: 'absolute', bottom: '30px', left: '30px', color: 'white', pointerEvents: 'none', background: 'rgba(0,0,0,0.5)', padding: '15px 25px', borderRadius: '20px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)' }}>
           <p style={{ margin: 0, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', opacity: 0.8 }}>Interactive Legacy</p>
-          <p style={{ margin: '5px 0 0 0', fontSize: '1.1rem', color: '#ffb6c1' }}>Tap spheres to expand branches</p>
+          <p style={{ margin: '5px 0 0 0', fontSize: '1.1rem', color: '#ffb6c1' }}>Tap emojis to expand branches</p>
         </div>
+
+        <button 
+          onClick={() => setIsGlobalExpanded(!isGlobalExpanded)}
+          className="btn-gold"
+          style={{ 
+            position: 'absolute', 
+            bottom: '30px', 
+            right: '30px', 
+            padding: '10px 20px', 
+            fontSize: '0.9rem',
+            borderRadius: '20px',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          {isGlobalExpanded ? 'Collapse All' : 'View All'}
+        </button>
       </div>
     </section>
   );

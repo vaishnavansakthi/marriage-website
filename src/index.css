@@ -42,6 +42,32 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 10;
 }
 
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.section-header h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gold-accent);
+  margin: 0 auto 1.5rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  font-style: italic;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(30px); }
