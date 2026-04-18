@@ -13,6 +13,11 @@ const EVENT_IMAGES = [
 
 const Events = () => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [showMap, setShowMap] = useState({ reception: false, wedding: false });
+
+  const toggleMap = (type) => {
+    setShowMap((prev) => ({ ...prev, [type]: !prev[type] }));
+  };
 
   const openLightbox = (index) => {
     setLightboxIndex(index);
@@ -113,8 +118,29 @@ const Events = () => {
             Join us for an evening of joy, celebration, and dinner.
           </p>
 
+          <div className={`map-embed-container ${showMap.reception ? 'active' : ''}`}>
+             <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.0806934774973!2d77.35376259999998!3d10.010193400000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b070d366c693aff%3A0x155ba716ff4a2be0!2sSandiya%20Marriage%20Hall!5e0!3m2!1sen!2sin!4v1776532785251!5m2!1sen!2sin" 
+                width="100%" 
+                height="300" 
+                style={{ border: 0 }} 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Sandhiyas Mahal Map"
+              ></iframe>
+          </div>
+
           <div className="event-actions">
-            <a target="_blank" href="https://maps.app.goo.gl/8MCUj75FvA7ypdyL8" className="btn-link" onClick={() => sendEvent('view_map', { event_category: 'events', event_label: 'Reception Map' })} rel="noreferrer">View Map</a>
+            <button 
+              className="btn-link" 
+              onClick={() => {
+                toggleMap('reception');
+                sendEvent('toggle_map', { event_category: 'events', event_label: 'Reception Map' });
+              }}
+            >
+              {showMap.reception ? 'Hide Map' : 'View map'}
+            </button>
             <button onClick={() => addToCalendar('reception')} className="btn-calendar">
               <BookmarkPlus size={16} />
               <span>Add to Calendar</span>
@@ -155,8 +181,29 @@ const Events = () => {
             We invite you to witness our sacred union and bless us on our special morning.
           </p>
 
+          <div className={`map-embed-container ${showMap.wedding ? 'active' : ''}`}>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.0749740753054!2d77.350134!3d10.0106659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b070d340232b80d%3A0x4b5bba81608d639e!2sArulmigu%20Shri%20Subramaniya%20Swamy%20Temple!5e0!3m2!1sen!2sin!4v1776532685153!5m2!1sen!2sin" 
+                width="100%" 
+                height="300" 
+                style={{ border: 0 }} 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Temple Map"
+              ></iframe>
+          </div>
+
           <div className="event-actions">
-            <a target="_blank" href="https://maps.app.goo.gl/QigZo7WG7pWRv3Lr5" className="btn-link" onClick={() => sendEvent('view_map', { event_category: 'events', event_label: 'Wedding Map' })} rel="noreferrer">View Map</a>
+            <button 
+              className="btn-link" 
+              onClick={() => {
+                toggleMap('wedding');
+                sendEvent('toggle_map', { event_category: 'events', event_label: 'Wedding Map' });
+              }}
+            >
+              {showMap.wedding ? 'Hide Map' : 'View map'}
+            </button>
             <button onClick={() => addToCalendar('wedding')} className="btn-calendar">
               <BookmarkPlus size={16} />
               <span>Add to Calendar</span>
