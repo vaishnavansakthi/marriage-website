@@ -1,15 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
+  /* Royal Gold - Default */
   --bg-dark: #2A0815;
   --bg-light: #3D1222;
   --gold-accent: #D4AF37;
   --gold-light: #F3E5AB;
   --text-main: #F8F9FA;
   --text-muted: #A0AEC0;
+  --card-bg: rgba(61, 18, 34, 0.6);
+  --heart-color: #ff1744;
   
   --font-display: 'Cinzel', serif;
   --font-body: 'Inter', sans-serif;
+  --transition-speed: 0.5s;
+}
+
+[data-theme='midnight-rose'] {
+  --bg-dark: #0F0409;
+  --bg-light: #1A0710;
+  --gold-accent: #FF1A75; /* Rose accent */
+  --gold-light: #FFB3D1; /* Light pinkish gold */
+  --text-main: #FFF0F5;
+  --text-muted: #BFA7B1;
+  --card-bg: rgba(26, 7, 16, 0.7);
+  --heart-color: #FF1A75;
 }
 
 * {
@@ -24,6 +39,7 @@ body {
   color: var(--text-main);
   overflow-x: hidden;
   line-height: 1.6;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -89,14 +105,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glassmorphism Cards */
 .glass-card {
-  background: rgba(61, 18, 34, 0.6);
+  background: var(--card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: 16px;
   padding: 2.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, background var(--transition-speed), border-color var(--transition-speed);
 }
 
 .glass-card:hover {
@@ -106,10 +122,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gold Text Gradient */
 .gold-text {
-  background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-light) 50%, var(--gold-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  transition: all var(--transition-speed) ease;
 }
 
 /* Buttons */

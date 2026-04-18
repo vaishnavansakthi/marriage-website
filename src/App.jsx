@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
 import Background from './components/Background';
 import Preloader from './components/Preloader';
+import ThemeSwitcher from './components/ThemeSwitcher';
 import './index.css';
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
         <Blessings />
         <Footer />
         <MusicPlayer />
+        <ThemeSwitcher />
       </div>
     </>
   );

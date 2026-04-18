@@ -6,7 +6,7 @@
   max-width: 800px;
   margin: 0 auto;
   position: relative;
-  background: rgba(61, 18, 34, 0.3);
+  background: var(--card-bg);
   padding: 3rem;
   border-radius: 20px;
   border: 1px solid rgba(212, 175, 55, 0.1);
@@ -112,13 +112,13 @@
 }
 
 .map-pin.chennai { color: var(--gold-accent); }
-.map-pin.madurai { color: #ff1744; }
+.map-pin.madurai { color: var(--heart-color); }
 .map-pin.bodi { color: var(--gold-accent); }
-.map-pin.bali { color: #ff1744; }
+.map-pin.bali { color: var(--heart-color); }
 
 .bali-heart {
   font-size: 20px;
-  fill: #ff1744;
+  fill: var(--heart-color);
   pointer-events: none;
 }
 
@@ -148,7 +148,7 @@
 }
 
 .pin-label.highlight strong {
-  color: #ff1744;
+  color: var(--heart-color);
   text-shadow: 0 0 10px rgba(255, 23, 68, 0.4);
 }
 
@@ -181,10 +181,10 @@
 }
 
 .dot.gold { background: var(--gold-accent); }
-.dot.red { background: #ff1744; }
+.dot.red { background: var(--heart-color); }
 
 .legend-heart {
-  color: #ff1744;
+  color: var(--heart-color);
   animation: heartSmallPulse 1.5s infinite;
 }
 

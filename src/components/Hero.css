@@ -95,8 +95,8 @@
   font-size: clamp(1.75rem, 4.5vw, 2.5rem);
   line-height: 1;
   text-transform: lowercase;
-  color: #ff1744;
-  -webkit-text-fill-color: #ff1744;
+  color: var(--heart-color);
+  -webkit-text-fill-color: var(--heart-color);
   background: none;
   text-shadow: 0 0 14px rgba(255, 23, 68, 0.35);
   animation: hero-weds-soft 3s ease-in-out 1.2s infinite;
@@ -281,7 +281,7 @@
   align-items: center;
   gap: 1.5rem;
   margin-top: 2rem;
-  background: rgba(61, 18, 34, 0.5);
+  background: var(--card-bg);
   padding: 1.5rem 2.5rem;
   border-radius: 12px;
   border: 1px solid rgba(212, 175, 55, 0.1);
