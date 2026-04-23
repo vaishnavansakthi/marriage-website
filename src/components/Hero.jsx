@@ -113,7 +113,7 @@ const Hero = () => {
           <style>
             body { font-family: Inter, Arial, sans-serif; background: #fff; color:#1a0510; margin:0; padding:32px; }
             .invite { max-width:900px; margin:0 auto; text-align:center; }
-            .hero-img { width:100%; max-height:360px; object-fit:cover; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.25); }
+            .hero-img { width:100%; height:auto; max-height:500px; object-fit:contain; border-radius:12px }
             .names-print { font-family: 'Cinzel', serif; margin:20px 0 12px; color:#2a0815; }
             .np-role { font-size:11px; letter-spacing:0.35em; text-transform:uppercase; color:#888; font-family:Inter,sans-serif; margin-bottom:6px; }
             .np-line { font-size:36px; margin:12px 0; line-height:1.15; }
@@ -123,12 +123,12 @@ const Hero = () => {
             .location { font-size:16px; color:#444; margin-bottom:24px; }
             .poem { font-style:italic; color:#333; margin:18px 0 28px; line-height:1.6 }
             .footer { font-size:13px; color:#666; margin-top:36px }
-            @media print { body{padding:12mm;} .hero-img{max-height:240px;} }
+            @media print { body{padding:12mm;} .hero-img{max-height:450px;} }
           </style>
         </head>
         <body>
           <div class="invite">
-            <img src="/couple-photo.jpg" alt="Vaishnavan and Nagadivya" class="hero-img" />
+            <img src="/pole.jpeg" alt="Vaishnavan and Nagadivya" class="hero-img" />
             <div class="names-print">
               <div class="np-line"><div class="np-role">Groom</div>Vaishnavan</div>
               <div class="np-weds" aria-hidden="true">weds</div>

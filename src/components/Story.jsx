@@ -4,7 +4,7 @@ import './Story.css';
 import './Gallery.css';
 
 const STORY_HERO = {
-  src: '/couple-photo.jpg',
+  src: '/engage.jpeg',
   title: 'Vaishnavan & Nagadivya',
 };
 
@@ -79,27 +79,27 @@ const Story = () => {
           </div>
         </div>
 
-      {showFullStory && (
-        <>
-        <div className="timeline-item reveal-immediate">
-          <div className="timeline-dot"></div>
-          <div className="timeline-content left glass-card">
-            <span className="timeline-date">February 28, 2026</span>
-            <h3>Our First Outing</h3>
-            <p>We went on our first outing to seek blessings at the Kuladeivam temple in Ulusampatti. Afterwards, we enjoyed watching the movie "With Love" together and spent a beautiful afternoon bonding over lunch.</p>
-          </div>
-        </div>
+        {showFullStory && (
+          <>
+            <div className="timeline-item reveal-immediate">
+              <div className="timeline-dot"></div>
+              <div className="timeline-content left glass-card">
+                <span className="timeline-date">February 28, 2026</span>
+                <h3>Our First Outing</h3>
+                <p>We went on our first outing to seek blessings at the Kuladeivam temple in Ulusampatti. Afterwards, we enjoyed watching the movie "With Love" together and spent a beautiful afternoon bonding over lunch.</p>
+              </div>
+            </div>
 
-        <div className="timeline-item reveal-immediate">
-          <div className="timeline-dot"></div>
-          <div className="timeline-content right glass-card">
-            <span className="timeline-date">March 5, 2026</span>
-            <h3>A Birthday Surprise</h3>
-            <p>For my birthday, she took the special effort to travel all the way to Chennai just to meet me in person. It was a beautiful and deeply touching surprise that made my day truly unforgettable.</p>
-          </div>
-        </div>
-        </>
-      )}
+            <div className="timeline-item reveal-immediate">
+              <div className="timeline-dot"></div>
+              <div className="timeline-content right glass-card">
+                <span className="timeline-date">March 5, 2026</span>
+                <h3>A Birthday Surprise</h3>
+                <p>For my birthday, she took the special effort to travel all the way to Chennai just to meet me in person. It was a beautiful and deeply touching surprise that made my day truly unforgettable.</p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {!showFullStory && (
