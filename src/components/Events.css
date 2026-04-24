@@ -13,30 +13,41 @@
   min-width: 0;
 }
 
-/* Ensure section header stays centered on small screens */
-.events-section .section-header {
-  width: 100%;
-  text-align: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  box-sizing: border-box;
-}
-
-@media (max-width: 480px) {
-  /* Stack grid to single column and reduce gaps so header visually centers */
+@media (max-width: 768px) {
   .events-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    padding: 0 0.6rem;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem 3rem;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+  }
+
+  .events-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .events-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  .events-grid::-webkit-scrollbar-thumb {
+    background: var(--gold-accent);
+    border-radius: 10px;
+  }
+
+  .event-card {
+    flex: 0 0 85vw;
+    scroll-snap-align: center;
+    max-width: 400px;
   }
 
   .events-section .section-header {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 2rem;
   }
 
   .events-section .section-header h2 {
