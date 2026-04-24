@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Story from './components/Story';
 import FamilyTree from './components/FamilyTree';
 import JourneyMap from './components/JourneyMap';
+import Puzzle from './components/Puzzle';
 import Events from './components/Events';
 import Vendors from './components/Vendors';
 import SongRequests from './components/SongRequests';
@@ -63,6 +64,7 @@ function App() {
         <Story />
         <FamilyTree />
         <JourneyMap />
+        <Puzzle />
         {/* <Gallery /> */}
         <Events />
         <Vendors />
