@@ -8,7 +8,27 @@ const Puzzle = () => {
   const [tiles, setTiles] = useState([]);
   const [isSolved, setIsSolved] = useState(false);
   const [moves, setMoves] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [bestTime, setBestTime] = useState(localStorage.getItem('puzzle-best-time') || null);
+
+  // Timer logic
+  useEffect(() => {
+    let interval;
+    if (gameStarted && !isSolved) {
+      interval = setInterval(() => {
+        setSeconds((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [gameStarted, isSolved]);
+
+  // Format time
+  const formatTime = (s) => {
+    const mins = Math.floor(s / 60);
+    const secs = s % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Initialize ordered tiles
   const initTiles = () => {
@@ -16,6 +36,7 @@ const Puzzle = () => {
     setTiles(newTiles);
     setIsSolved(true);
     setMoves(0);
+    setSeconds(0);
     setGameStarted(false);
   };
 
@@ -26,8 +47,6 @@ const Puzzle = () => {
   const shuffle = () => {
     let newTiles = Array.from({ length: TOTAL_TILES }, (_, i) => i);
     
-    // Perform random valid moves to ensure solvability
-    // Just shuffling would sometimes result in unsolvable puzzles
     for (let i = 0; i < 200; i++) {
       const emptyIndex = newTiles.indexOf(TOTAL_TILES - 1);
       const possibleMoves = [];
@@ -46,6 +65,7 @@ const Puzzle = () => {
     setTiles(newTiles);
     setIsSolved(false);
     setMoves(0);
+    setSeconds(0);
     setGameStarted(true);
   };
 
@@ -73,12 +93,19 @@ const Puzzle = () => {
     const solved = currentTiles.every((tile, index) => tile === index);
     if (solved) {
       setIsSolved(true);
+      // Save best time
+      if (!bestTime || seconds < parseInt(bestTime)) {
+        setBestTime(seconds.toString());
+        localStorage.setItem('puzzle-best-time', seconds.toString());
+      }
     }
   };
 
-  const getTileStyle = (tileValue) => {
+  const getTileStyle = (tileValue, currentIndex) => {
+    const isCorrect = tileValue === currentIndex;
+    
     if (tileValue === TOTAL_TILES - 1 && !isSolved) {
-      return { opacity: 0 }; // Hidden tile
+      return { opacity: 0 };
     }
 
     const row = Math.floor(tileValue / GRID_SIZE);
@@ -88,45 +115,61 @@ const Puzzle = () => {
       backgroundImage: `url('/engage.jpeg')`,
       backgroundSize: `${GRID_SIZE * 100}% ${GRID_SIZE * 100}%`,
       backgroundPosition: `${(col * 100) / (GRID_SIZE - 1)}% ${(row * 100) / (GRID_SIZE - 1)}%`,
+      border: isCorrect && gameStarted && !isSolved ? '2px solid rgba(212, 175, 55, 0.4)' : '1px solid rgba(255,255,255,0.1)'
     };
   };
 
   return (
     <section className="section puzzle-section" id="puzzle">
       <div className="section-header reveal">
-        <h2 className="gold-text">Solve our Memory</h2>
+        <h2 className="gold-text">Our Engagement Puzzle</h2>
         <div className="divider"></div>
-        <p className="subtitle">Piece together our journey in this engagement puzzle!</p>
+        <p className="subtitle">Relive our special moment by completing the picture! ✨</p>
       </div>
 
       <div className="puzzle-container reveal">
-        <div className="puzzle-stats">
-          <span>Moves: {moves}</span>
-          <button className="btn-gold shuffle-btn" onClick={shuffle}>
-            {gameStarted && !isSolved ? 'Reset' : 'Start Puzzle'}
+        <div className="game-status-bar">
+          <div className="stat-item">
+            <span className="stat-label">MOVES</span>
+            <span className="stat-value">{moves}</span>
+          </div>
+          <button className="game-btn shuffle-btn" onClick={shuffle}>
+            {gameStarted && !isSolved ? 'RESET GAME' : 'START PLAYING'}
           </button>
+          <div className="stat-item">
+            <span className="stat-label">TIME</span>
+            <span className="stat-value">{formatTime(seconds)}</span>
+          </div>
         </div>
 
-        <div className={`puzzle-board ${isSolved ? 'solved' : ''}`}>
+        {bestTime && (
+          <div className="best-score">
+            🏆 Best Time: {formatTime(parseInt(bestTime))}
+          </div>
+        )}
+
+        <div className={`puzzle-board ${isSolved ? 'solved' : ''} ${gameStarted && !isSolved ? 'in-progress' : ''}`}>
           {tiles.map((tile, index) => (
             <div
               key={index}
-              className={`puzzle-tile ${tile === TOTAL_TILES - 1 ? 'empty' : ''}`}
-              style={getTileStyle(tile)}
+              className={`puzzle-tile ${tile === TOTAL_TILES - 1 ? 'empty' : ''} ${tile === index && gameStarted && !isSolved ? 'correct' : ''}`}
+              style={getTileStyle(tile, index)}
               onClick={() => handleTileClick(index)}
             />
           ))}
         </div>
 
-        <div className="puzzle-hint-container">
-          <p className="hint-label">Reference Image:</p>
-          <img src="/engage.jpeg" alt="Engagement Hint" className="hint-image" />
+        <div className="puzzle-meta">
+          <div className="puzzle-hint-container">
+            <p className="hint-label">Final Image Preview</p>
+            <img src="/engage.jpeg" alt="Engagement Hint" className="hint-image" />
+          </div>
         </div>
 
         {isSolved && gameStarted && (
           <div className="puzzle-success-message">
-            <h3>You solved it! 🎉</h3>
-            <p>Our beautiful engagement memory is complete.</p>
+            <h3>LEGENDARY! 🎉</h3>
+            <p>You completed the memory in {moves} moves and {formatTime(seconds)}!</p>
           </div>
         )}
       </div>
