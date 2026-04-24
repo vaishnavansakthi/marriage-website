@@ -118,6 +118,11 @@ const Puzzle = () => {
           ))}
         </div>
 
+        <div className="puzzle-hint-container">
+          <p className="hint-label">Reference Image:</p>
+          <img src="/engage.jpeg" alt="Engagement Hint" className="hint-image" />
+        </div>
+
         {isSolved && gameStarted && (
           <div className="puzzle-success-message">
             <h3>You solved it! 🎉</h3>
