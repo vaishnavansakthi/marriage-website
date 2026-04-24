@@ -98,7 +98,7 @@ const Puzzle = () => {
   };
 
   return (
-    <section className="section puzzle-section" id="puzzle">
+    <section className={`section puzzle-section ${isOpen ? 'is-modal-open' : ''}`} id="puzzle">
       <div className="section-header reveal">
         <h2 className="gold-text">Solve our Memory</h2>
         <div className="divider"></div>

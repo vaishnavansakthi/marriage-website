@@ -56,6 +56,10 @@
   font-family: var(--font-body);
 }
 
+.puzzle-section.is-modal-open {
+  z-index: 9999 !important;
+}
+
 /* Modal Styles */
 .puzzle-modal-overlay {
   position: fixed;
@@ -65,7 +69,7 @@
   height: 100vh;
   background: rgba(15, 5, 10, 0.95);
   backdrop-filter: blur(10px);
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
