@@ -4,7 +4,7 @@
 }
 
 .puzzle-container {
-  max-width: 450px;
+  max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -19,25 +19,24 @@
   align-items: center;
   font-family: var(--font-body);
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
 
 .shuffle-btn {
-  padding: 80px 20px !important; /* Overriding btn-gold for compact look */
-  padding: 8px 20px !important;
-  font-size: 0.8rem !important;
+  padding: 10px 25px !important;
+  font-size: 0.9rem !important;
 }
 
 .puzzle-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  gap: 6px;
   background: var(--gold-accent);
-  padding: 4px;
-  border-radius: 12px;
+  padding: 6px;
+  border-radius: 16px;
   aspect-ratio: 1 / 1;
   width: 100%;
-  max-width: 400px;
+  max-width: 550px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   position: relative;
 }
