@@ -142,6 +142,12 @@ const Puzzle = () => {
           </div>
         </div>
 
+        {!gameStarted && (
+          <p className="game-instruction">
+            💡 Click <strong>"START PLAYING"</strong> to shuffle. Then, click the pieces to slide them into the empty space!
+          </p>
+        )}
+
         {bestTime && (
           <div className="best-score">
             🏆 Best Time: {formatTime(parseInt(bestTime))}
