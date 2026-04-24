@@ -5,6 +5,7 @@ import FamilyTree from './components/FamilyTree';
 import JourneyMap from './components/JourneyMap';
 import Events from './components/Events';
 import Vendors from './components/Vendors';
+import SongRequests from './components/SongRequests';
 import Blessings from './components/Blessings';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
@@ -65,6 +66,7 @@ function App() {
         {/* <Gallery /> */}
         <Events />
         <Vendors />
+        <SongRequests />
         <Blessings />
         <Footer />
         <MusicPlayer />
