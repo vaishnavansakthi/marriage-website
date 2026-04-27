@@ -66,6 +66,7 @@ function App() {
         <Story />
         <FamilyTree />
         <GuestMap />
+        <PhotoWall />
         <JourneyMap />
         <Puzzle />
         {/* <Gallery /> */}
@@ -73,7 +74,6 @@ function App() {
         <Vendors />
         <SongRequests />
         <Blessings />
-        <PhotoWall />
         <Footer />
         <MusicPlayer />
         <ThemeSwitcher />

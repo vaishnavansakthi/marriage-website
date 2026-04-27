@@ -16,6 +16,7 @@ const PhotoWall = () => {
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState(null); // For Lightbox
+  const [showAll, setShowAll] = useState(false); // For Full Gallery Modal
 
   const fetchPhotos = useCallback(async () => {
     try {
@@ -176,23 +177,25 @@ const PhotoWall = () => {
           {loading && photos.length === 0 ? (
             <div className="grid-loading">Developing photos...</div>
           ) : photos.length > 0 ? (
-            photos.map((item) => (
-              <div key={item.id} className="photo-item glass-card" onClick={() => setSelectedPhoto(item)}>
-                <div className="image-wrapper">
-                  <img src={item.url} alt={item.caption} loading="lazy" />
-                  <div className="photo-overlay">
-                    <Maximize2 size={24} />
+            <>
+              {photos.slice(0, 6).map((item) => (
+                <div key={item.id} className="photo-item glass-card" onClick={() => setSelectedPhoto(item)}>
+                  <div className="image-wrapper">
+                    <img src={item.url} alt={item.caption} loading="lazy" />
+                    <div className="photo-overlay">
+                      <Maximize2 size={24} />
+                    </div>
+                  </div>
+                  <div className="photo-info">
+                    <p className="photo-caption">{item.caption || "A beautiful moment..."}</p>
+                    <div className="photo-meta">
+                      <span className="photo-author">by {item.name}</span>
+                      <span className="photo-time">{formatRelativeTime(item.date)}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="photo-info">
-                  <p className="photo-caption">{item.caption || "A beautiful moment..."}</p>
-                  <div className="photo-meta">
-                    <span className="photo-author">by {item.name}</span>
-                    <span className="photo-time">{formatRelativeTime(item.date)}</span>
-                  </div>
-                </div>
-              </div>
-            ))
+              ))}
+            </>
           ) : (
             <div className="no-photos">
               <ImageIcon size={48} opacity={0.3} />
@@ -200,11 +203,51 @@ const PhotoWall = () => {
             </div>
           )}
         </div>
+
+        {photos.length > 6 && (
+          <div className="view-all-container reveal">
+            <button className="view-all-btn" onClick={() => setShowAll(true)}>
+              View All {photos.length} Moments
+            </button>
+          </div>
+        )}
       </div>
+
+      {/* Full Gallery Modal */}
+      {showAll && (
+        <div className="full-gallery-modal" onClick={() => setShowAll(false)}>
+          <div className="modal-header">
+            <h2 className="gold-text">All Shared Moments</h2>
+            <button className="close-modal" onClick={() => setShowAll(false)}>
+              <X size={30} />
+            </button>
+          </div>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="full-photo-grid">
+              {photos.map((item) => (
+                <div key={item.id} className="photo-item glass-card" onClick={() => setSelectedPhoto(item)}>
+                  <div className="image-wrapper">
+                    <img src={item.url} alt={item.caption} loading="lazy" />
+                    <div className="photo-overlay">
+                      <Maximize2 size={24} />
+                    </div>
+                  </div>
+                  <div className="photo-info">
+                    <p className="photo-caption">{item.caption || "A beautiful moment..."}</p>
+                    <div className="photo-meta">
+                      <span className="photo-author">by {item.name}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lightbox */}
       {selectedPhoto && (
-        <div className="lightbox" onClick={() => setSelectedPhoto(null)}>
+        <div className="lightbox" onClick={() => setSelectedPhoto(null)} style={{ zIndex: 3000 }}>
           <button className="close-lightbox"><X size={30} /></button>
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
             <img src={selectedPhoto.url} alt={selectedPhoto.caption} />
