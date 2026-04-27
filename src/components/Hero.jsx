@@ -205,7 +205,7 @@ const Hero = () => {
         </div>
 
         <div style={{ marginTop: '1rem', display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
-          <button className="btn-gold" onClick={printInvite} aria-label="Print invitation">Save & Print Invite ✨</button>
+          <button className="btn-premium" onClick={printInvite} aria-label="Print invitation">Download Invitation ✨</button>
         </div>
 
         <div className="countdown">

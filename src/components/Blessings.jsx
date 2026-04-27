@@ -145,9 +145,9 @@ const Blessings = () => {
               required
             />
           </div>
-          <button type="submit" className="blessing-submit-btn" disabled={sending}>
+          <button type="submit" className="btn-premium" disabled={sending} style={{ width: '100%' }}>
             <Send size={18} />
-            <span>{sending ? 'Sending...' : 'Send Blessing'}</span>
+            <span>{sending ? 'Sending...' : 'Share Your Blessing'}</span>
           </button>
 
           {submitted && (

@@ -65,30 +65,7 @@
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
 }
 
-.blessing-submit-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 0.9rem 2rem;
-  background: transparent;
-  border: 2px solid var(--gold-accent);
-  color: var(--gold-light);
-  font-family: var(--font-display);
-  font-size: 1rem;
-  border-radius: 30px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  align-self: center;
-}
 
-.blessing-submit-btn:hover {
-  background: var(--gold-accent);
-  color: #1a0510;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-}
 
 .blessings-display {
   flex: 1.5;

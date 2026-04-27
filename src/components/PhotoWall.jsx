@@ -163,9 +163,9 @@ const PhotoWall = () => {
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
               />
-              <button type="submit" className="upload-btn" disabled={uploading || !selectedFile}>
-                {uploading ? <Loader2 className="spin" size={20} /> : <Send size={20} />}
-                <span>Post to Wall</span>
+              <button type="submit" className="btn-premium" disabled={uploading || !selectedFile} style={{ width: '100%' }}>
+                {uploading ? <Loader2 className="spin" size={20} /> : <ImageIcon size={20} />}
+                <span>Share a Memory</span>
               </button>
               {submitted && <p className="success-msg">Moment shared! ✨</p>}
             </div>
@@ -205,9 +205,10 @@ const PhotoWall = () => {
         </div>
 
         {photos.length > 6 && (
-          <div className="view-all-container reveal">
-            <button className="view-all-btn" onClick={() => setShowAll(true)}>
-              View All {photos.length} Moments
+          <div className="view-all-container">
+            <button className="btn-premium-ghost" onClick={() => setShowAll(true)}>
+              <ImageIcon size={20} />
+              <span>Explore All {photos.length} Moments</span>
             </button>
           </div>
         )}

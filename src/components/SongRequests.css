@@ -193,35 +193,7 @@
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
 }
 
-.song-submit-btn {
-  background: linear-gradient(135deg, var(--gold-accent), #B8860B);
-  color: #1a0510;
-  border: none;
-  border-radius: 12px;
-  padding: 15px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
 
-.song-submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-  filter: brightness(1.1);
-}
-
-.song-submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
 
 .success-msg {
   color: var(--gold-light);

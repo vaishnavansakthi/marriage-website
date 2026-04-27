@@ -173,6 +173,89 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
+/* Premium Primary Button */
+.btn-premium {
+  background: linear-gradient(135deg, var(--gold-accent), #B8860B);
+  color: #1a0510;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-premium:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn-premium:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Premium Ghost Button (Glass) */
+.btn-premium-ghost {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 14px 35px;
+  border-radius: 50px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-premium-ghost::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(212, 175, 55, 0.2),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.btn-premium-ghost:hover::after {
+  left: 150%;
+}
+
+.btn-premium-ghost:hover {
+  background: rgba(212, 175, 55, 0.12);
+  border-color: var(--gold-accent);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  color: white;
+}
+
 /* Input Fields */
 .form-group {
   margin-bottom: 1.5rem;

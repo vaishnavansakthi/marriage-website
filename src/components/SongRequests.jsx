@@ -179,7 +179,7 @@ const SongRequests = () => {
                 className="song-input"
               />
             </div>
-            <button type="submit" className="song-submit-btn" disabled={sending}>
+            <button type="submit" className="btn-premium" disabled={sending} style={{ width: '100%', marginTop: '10px' }}>
               <Send size={18} />
               <span>{sending ? 'Requesting...' : 'Add to Playlist'}</span>
             </button>

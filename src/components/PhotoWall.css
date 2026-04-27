@@ -108,27 +108,6 @@
   resize: none;
 }
 
-.upload-btn {
-  background: linear-gradient(135deg, var(--gold-accent), #B8860B);
-  color: #1a0510;
-  border: none;
-  padding: 12px;
-  border-radius: 30px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: 0.3s;
-}
-
-.upload-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-}
-
 .upload-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -278,25 +257,6 @@
   display: flex;
   justify-content: center;
   margin-top: 30px;
-}
-
-.view-all-btn {
-  background: transparent;
-  color: var(--gold-accent);
-  border: 1px solid var(--gold-accent);
-  padding: 10px 30px;
-  border-radius: 30px;
-  font-family: var(--font-display);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.view-all-btn:hover {
-  background: var(--gold-accent);
-  color: #1a0510;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
 }
 
 /* Full Gallery Modal */
