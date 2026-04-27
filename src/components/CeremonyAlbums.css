@@ -26,16 +26,17 @@
 .album-cover {
   position: relative;
   width: 100%;
-  aspect-ratio: 1/1;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.05); /* Subtle background for transparency */
 }
 
 .album-cover img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
+  object-fit: contain; /* Ensure the whole image fits */
   transition: transform 0.5s ease;
 }
 
