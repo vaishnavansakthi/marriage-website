@@ -42,13 +42,21 @@ const SongRequests = () => {
         const content = fullMsg.replace('🎵 SONG REQUEST: ', '');
         const parts = content.split(' - ');
         return {
+          // Creating a stable ID from the content to prevent re-renders
+          id: `${row.Name || row.name}-${fullMsg}-${row.Date || row.date}`.replace(/\s+/g, ''),
           name: row.Name || row.name || 'Guest',
           song: parts[0] || 'Unknown Song',
           movie: parts[1] || '',
-          date: row.Date || row.date || 'Recently'
+          date: row.Date || row.date || ''
         };
       });
-      setRequests(songRequests.reverse()); 
+
+      const newRequests = songRequests.reverse();
+      setRequests(prev => {
+        // Prevent "blink" by only updating if data actually changed
+        if (JSON.stringify(prev) === JSON.stringify(newRequests)) return prev;
+        return newRequests;
+      });
     } catch (err) {
       console.error('Fetch Error:', err);
       setFetchError(err.message);
@@ -190,8 +198,8 @@ const SongRequests = () => {
               </div>
             ) : requests.length > 0 ? (
               <div className="requests-list">
-                {requests.map((req, index) => (
-                  <div key={index} className="request-item glass-card">
+                {requests.map((req) => (
+                  <div key={req.id} className="request-item glass-card">
                     <div className="request-info">
                       <span className="req-song">{req.song}</span>
                       {req.movie && <span className="req-movie">{req.movie}</span>}

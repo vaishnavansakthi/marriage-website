@@ -22,18 +22,30 @@ const Blessings = () => {
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) {
-          // Filter for regular blessings (not song requests)
+          // Filter and map with stable unique IDs (name + message)
           const validBlessings = data.filter(row => {
             const msg = row.Message || row.message || '';
             return msg && !msg.toString().startsWith('🎵 SONG REQUEST:');
           })
-          .map(row => ({
-            id: row.id || Math.random(),
-            name: row.Name || row.name || 'Guest',
-            message: row.Message || row.message || '',
-            date: row.Date || row.date || 'Recently'
-          }));
-          setBlessings(validBlessings.reverse());
+          .map(row => {
+            const name = row.Name || row.name || 'Guest';
+            const msg = row.Message || row.message || '';
+            const date = row.Date || row.date || '';
+            return {
+              // Creating a stable ID from the content to prevent re-renders
+              id: `${name}-${msg}-${date}`.replace(/\s+/g, ''),
+              name,
+              message: msg,
+              date
+            };
+          });
+
+          // Only update if the number of items changed or the latest one is different
+          const newBlessings = validBlessings.reverse();
+          setBlessings(prev => {
+            if (JSON.stringify(prev) === JSON.stringify(newBlessings)) return prev;
+            return newBlessings;
+          });
         }
       }
     } catch (err) {
