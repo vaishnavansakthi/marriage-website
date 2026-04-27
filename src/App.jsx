@@ -64,13 +64,13 @@ function App() {
         <Hero />
         <Story />
         <FamilyTree />
+        <GuestMap />
         <JourneyMap />
         <Puzzle />
         {/* <Gallery /> */}
         <Events />
         <Vendors />
         <SongRequests />
-        <GuestMap />
         <Blessings />
         <Footer />
         <MusicPlayer />

@@ -32,6 +32,9 @@ const GuestMap = () => {
   const [fetching, setFetching] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [mapSearchTerm, setMapSearchTerm] = useState('');
+  const [mapCenter, setMapCenter] = useState([20, 0]);
+  const [mapZoom, setMapZoom] = useState(2);
 
   // Auto-centering component
   const ChangeView = ({ center, zoom }) => {
@@ -126,6 +129,16 @@ const GuestMap = () => {
     }
   };
 
+  const filteredPins = pins.filter(pin => 
+    pin.name.toLowerCase().includes(mapSearchTerm.toLowerCase()) ||
+    pin.city.toLowerCase().includes(mapSearchTerm.toLowerCase())
+  );
+
+  const focusOnPin = (pin) => {
+    setMapCenter(pin.position);
+    setMapZoom(8);
+  };
+
   return (
     <section className="guest-map-section" id="guest-map">
       <div className="section-header reveal">
@@ -136,11 +149,12 @@ const GuestMap = () => {
       <div className="guest-map-container glass-card">
         <div className="map-wrapper">
           <MapContainer 
-            center={[20, 0]} 
-            zoom={2} 
+            center={mapCenter} 
+            zoom={mapZoom} 
             scrollWheelZoom={false}
             className="leaflet-container-dark"
           >
+            <ChangeView center={mapCenter} zoom={mapZoom} />
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
               url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
@@ -194,17 +208,33 @@ const GuestMap = () => {
           </div>
 
           <div className="recent-pinnings">
-            <h4>Recent Pins</h4>
-            <div className="pinnings-list">
+            <div className="pinnings-header">
+              <h4>Guest Pins</h4>
+              <div className="pinnings-search">
+                <Search size={14} className="input-icon" />
+                <input 
+                  type="text" 
+                  placeholder="Find a guest..." 
+                  value={mapSearchTerm}
+                  onChange={(e) => setMapSearchTerm(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="pinnings-list scrollable-list">
               {fetching ? (
                 <div className="map-loading">Tracking love...</div>
-              ) : pins.slice(0, 5).map(pin => (
-                <div key={pin.id} className="pin-item">
-                  <Heart size={14} className="gold-text" />
-                  <span><strong>{pin.name}</strong> from {pin.city}</span>
-                </div>
-              ))}
-              {pins.length === 0 && !fetching && <p className="no-pins">No pins yet. Be the first!</p>}
+              ) : filteredPins.length > 0 ? (
+                filteredPins.map(pin => (
+                  <div key={pin.id} className="pin-item" onClick={() => focusOnPin(pin)}>
+                    <Heart size={14} className="gold-text" />
+                    <span><strong>{pin.name}</strong> from {pin.city}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="no-pins">
+                  {mapSearchTerm ? `No results for "${mapSearchTerm}"` : "No pins yet. Be the first!"}
+                </p>
+              )}
             </div>
           </div>
         </div>
