@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Send, User } from 'lucide-react';
+import { Heart, Send, User, MessageSquare, Search } from 'lucide-react';
 import { formatRelativeTime } from '../utils/time';
 import './Blessings.css';
 
@@ -14,6 +14,7 @@ const Blessings = () => {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Fetch blessings from Google Sheets
   const fetchBlessings = async () => {
@@ -54,6 +55,12 @@ const Blessings = () => {
       setLoading(false);
     }
   };
+
+  // Filter blessings based on search term
+  const filteredBlessings = blessings.filter(blessing => 
+    blessing.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    blessing.message.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     fetchBlessings();
@@ -146,12 +153,27 @@ const Blessings = () => {
         </form>
 
         <div className="blessings-display reveal">
+          <h3 className="gold-text">Blessings Wall</h3>
+          
+          {blessings.length > 0 && (
+            <div className="search-box-wrapper">
+              <Search className="search-icon" size={18} />
+              <input
+                type="text"
+                placeholder="Search by name or message..."
+                className="search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          )}
+
           <div className="blessings-scroll">
-            {loading ? (
-              <div className="blessings-loading">Loading blessings...</div>
-            ) : blessings.length > 0 ? (
+            {loading && blessings.length === 0 ? (
+              <div className="blessings-loading">Whispering prayers...</div>
+            ) : filteredBlessings.length > 0 ? (
               <div className="blessings-grid">
-                {blessings.map((blessing) => (
+                {filteredBlessings.map((blessing) => (
                   <div key={blessing.id} className="blessing-card glass-card">
                     <p className="blessing-message">"{blessing.message}"</p>
                     <div className="blessing-footer">
@@ -160,6 +182,11 @@ const Blessings = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            ) : blessings.length > 0 ? (
+              <div className="no-results">
+                <Search size={24} opacity={0.5} />
+                <p>No blessings found for "{searchTerm}"</p>
               </div>
             ) : (
               <p className="no-blessings">No blessings yet. Share the first one!</p>

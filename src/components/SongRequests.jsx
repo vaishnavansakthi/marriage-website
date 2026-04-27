@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Music, Send, User, Disc, RefreshCw } from 'lucide-react';
+import { Music, Send, User, Disc, RefreshCw, Search, Loader2 } from 'lucide-react';
 import { formatRelativeTime } from '../utils/time';
 import './SongRequests.css';
 
@@ -16,6 +16,7 @@ const SongRequests = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchRequests = useCallback(async () => {
     try {
@@ -118,6 +119,12 @@ const SongRequests = () => {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
+  // Filter requests based on search term
+  const filteredRequests = requests.filter(req => 
+    req.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    req.song.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <section className="section song-requests-section" id="playlist">
       <div className="section-header reveal">
@@ -185,10 +192,22 @@ const SongRequests = () => {
 
         <div className="recent-requests-container reveal">
           <h3 className="gold-text">Recent Requests</h3>
+          {requests.length > 0 && (
+            <div className="search-box-wrapper">
+              <Search className="search-icon" size={18} />
+              <input
+                type="text"
+                placeholder="Search by name or song..."
+                className="search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          )}
           <div className="requests-list-wrapper">
-            {loading ? (
+            {loading && requests.length === 0 ? (
               <div className="requests-loading">
-                <RefreshCw className="spin" size={24} />
+                <Loader2 className="spin" size={30} />
                 <p>Loading playlist...</p>
               </div>
             ) : fetchError ? (
@@ -196,9 +215,9 @@ const SongRequests = () => {
                 <p>Error loading requests: {fetchError}</p>
                 <button onClick={fetchRequests} className="retry-btn">Retry</button>
               </div>
-            ) : requests.length > 0 ? (
+            ) : filteredRequests.length > 0 ? (
               <div className="requests-list">
-                {requests.map((req) => (
+                {filteredRequests.map((req) => (
                   <div key={req.id} className="request-item glass-card">
                     <div className="request-info">
                       <span className="req-song">{req.song}</span>
@@ -208,6 +227,11 @@ const SongRequests = () => {
                     <span className="req-date">{formatRelativeTime(req.date)}</span>
                   </div>
                 ))}
+              </div>
+            ) : requests.length > 0 ? (
+              <div className="no-results">
+                <Search size={24} opacity={0.5} />
+                <p>No requests found for "{searchTerm}"</p>
               </div>
             ) : (
               <p className="no-requests">No requests yet. Be the first to add one!</p>
