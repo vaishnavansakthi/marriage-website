@@ -9,6 +9,7 @@ import Vendors from './components/Vendors';
 import SongRequests from './components/SongRequests';
 import GuestMap from './components/GuestMap';
 import Blessings from './components/Blessings';
+import PhotoWall from './components/PhotoWall';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
 import Background from './components/Background';
@@ -72,6 +73,7 @@ function App() {
         <Vendors />
         <SongRequests />
         <Blessings />
+        <PhotoWall />
         <Footer />
         <MusicPlayer />
         <ThemeSwitcher />

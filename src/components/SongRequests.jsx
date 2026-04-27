@@ -68,8 +68,8 @@ const SongRequests = () => {
 
   useEffect(() => {
     fetchRequests();
-    // Poll every 1 second for near-instant updates (user requested)
-    const interval = setInterval(fetchRequests, 1000);
+    // Reduced to 10 seconds to prevent Google Script 500 errors
+    const interval = setInterval(fetchRequests, 10000);
     return () => clearInterval(interval);
   }, [fetchRequests]);
 

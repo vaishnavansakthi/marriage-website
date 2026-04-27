@@ -25,8 +25,11 @@ const Blessings = () => {
         if (Array.isArray(data)) {
           // Filter and map with stable unique IDs (name + message)
           const validBlessings = data.filter(row => {
-            const msg = row.Message || row.message || '';
-            return msg && !msg.toString().startsWith('🎵 SONG REQUEST:');
+            const msg = (row.Message || row.message || '').toString();
+            return msg && 
+                   !msg.startsWith('🎵 SONG REQUEST:') && 
+                   !msg.includes('PHOTO:') && 
+                   !msg.includes('PIN:');
           })
           .map(row => {
             const name = row.Name || row.name || 'Guest';
@@ -64,8 +67,8 @@ const Blessings = () => {
 
   useEffect(() => {
     fetchBlessings();
-    // Poll every 1 second for near-instant updates (user requested)
-    const interval = setInterval(fetchBlessings, 1000);
+    // Reduced to 10 seconds to prevent Google Script 500 errors
+    const interval = setInterval(fetchBlessings, 10000);
     return () => clearInterval(interval);
   }, []);
 

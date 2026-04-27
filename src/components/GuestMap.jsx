@@ -66,9 +66,11 @@ const GuestMap = () => {
             };
           }).filter(pin => !isNaN(pin.position[0]) && !isNaN(pin.position[1]));
 
+          const latestFirst = mapPins.reverse();
+
           setPins(prev => {
-            if (JSON.stringify(prev) === JSON.stringify(mapPins)) return prev;
-            return mapPins;
+            if (JSON.stringify(prev) === JSON.stringify(latestFirst)) return prev;
+            return latestFirst;
           });
         }
       }
