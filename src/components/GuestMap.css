@@ -1,0 +1,216 @@
+.guest-map-section {
+  padding: 80px 20px;
+  background: transparent;
+}
+
+.guest-map-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+  border-radius: 24px;
+}
+
+.map-wrapper {
+  height: 450px;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+}
+
+.leaflet-container-dark {
+  height: 100%;
+  width: 100%;
+}
+
+/* Custom Marker Styles */
+.custom-heart-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-marker-inner {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  animation: heartBeat 2s infinite;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.1); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  60% { transform: scale(1); }
+}
+
+/* Modal/Controls area */
+.map-controls {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  padding: 10px;
+}
+
+.add-pin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.add-pin-form h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--gold-light);
+  margin-bottom: 5px;
+}
+
+.map-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.map-input-group .input-icon {
+  position: absolute;
+  left: 15px;
+  color: var(--gold-accent);
+  opacity: 0.6;
+}
+
+.map-input-group input {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 12px;
+  color: white;
+  font-family: var(--font-body);
+  transition: all 0.3s;
+}
+
+.map-input-group input:focus {
+  outline: none;
+  border-color: var(--gold-accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.map-submit-btn {
+  background: linear-gradient(135deg, var(--gold-accent), #B8860B);
+  color: #1a0510;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+  align-self: flex-start;
+}
+
+.map-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+}
+
+.map-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.map-error {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.map-success {
+  color: var(--gold-light);
+  font-size: 0.85rem;
+  font-style: italic;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Recent Pins List */
+.recent-pinnings {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recent-pinnings h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.pinnings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pin-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.pin-item strong {
+  color: var(--gold-accent);
+}
+
+/* Popup Customization */
+.custom-popup .leaflet-popup-content-wrapper {
+  background: rgba(26, 5, 16, 0.95);
+  color: white;
+  border: 1px solid var(--gold-accent);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.custom-popup .leaflet-popup-tip {
+  background: rgba(26, 5, 16, 0.95);
+  border: 1px solid var(--gold-accent);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 5px;
+}
+
+.popup-content strong {
+  font-size: 1.1rem;
+  color: var(--gold-accent);
+}
+
+@media (max-width: 900px) {
+  .map-controls {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guest-map-container {
+    padding: 15px;
+  }
+  
+  .map-wrapper {
+    height: 350px;
+  }
+}

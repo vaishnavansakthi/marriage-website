@@ -7,6 +7,7 @@ import Puzzle from './components/Puzzle';
 import Events from './components/Events';
 import Vendors from './components/Vendors';
 import SongRequests from './components/SongRequests';
+import GuestMap from './components/GuestMap';
 import Blessings from './components/Blessings';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
@@ -69,6 +70,7 @@ function App() {
         <Events />
         <Vendors />
         <SongRequests />
+        <GuestMap />
         <Blessings />
         <Footer />
         <MusicPlayer />
