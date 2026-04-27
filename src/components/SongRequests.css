@@ -5,19 +5,81 @@
 }
 
 .song-requests-container {
-  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1000px;
   margin: 0 auto;
+  align-items: flex-start;
   position: relative;
   z-index: 2;
 }
 
 .song-request-card {
+  flex: 1;
+  min-width: 300px;
   padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
   border-radius: 24px;
+}
+
+@media (max-width: 900px) {
+  .song-requests-section {
+    padding: 60px 15px;
+  }
+  
+  .song-requests-container {
+    gap: 30px;
+  }
+  
+  .song-request-card {
+    padding: 25px 20px;
+    min-width: 100%;
+  }
+
+  .recent-requests-container {
+    min-width: 100%;
+  }
+  
+  .recent-requests-container h3 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .song-requests-section {
+    padding: 40px 10px;
+  }
+  
+  .vinyl-animation {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .spinning-vinyl {
+    width: 50px;
+  }
+
+  .song-input {
+    font-size: 0.9rem;
+    padding: 12px 12px 12px 45px;
+  }
+
+  .song-submit-btn {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .request-item {
+    padding: 12px 15px;
+  }
+  
+  .req-song {
+    font-size: 1rem;
+  }
 }
 
 /* Vinyl Animation */
@@ -119,6 +181,137 @@
   font-size: 0.95rem;
   margin-top: 10px;
   animation: fadeIn 0.5s ease;
+}
+
+/* Recent Requests List */
+.recent-requests-container {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recent-requests-container h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.requests-list-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
+/* Custom Scrollbar */
+.requests-list-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.requests-list-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.requests-list-wrapper::-webkit-scrollbar-thumb {
+  background: var(--gold-accent);
+  border-radius: 10px;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  transition: transform 0.3s;
+  border-radius: 12px;
+}
+
+.request-item:hover {
+  transform: translateX(5px);
+  border-color: var(--gold-accent);
+}
+
+.request-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.req-song {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: var(--gold-accent);
+  font-size: 1.1rem;
+}
+
+.req-movie {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.9;
+  font-family: 'Outfit', sans-serif;
+}
+
+.req-name {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.req-date {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.requests-loading, .no-requests, .requests-error {
+  text-align: center;
+  padding: 40px;
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.requests-error {
+  color: #ff6b6b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.retry-btn {
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid var(--gold-accent);
+  color: var(--gold-accent);
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.requests-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Floating Notes */

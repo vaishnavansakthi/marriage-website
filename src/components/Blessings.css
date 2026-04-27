@@ -2,24 +2,28 @@
   min-height: auto !important;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
-  padding-top: 2rem !important; /* Keep some top padding from previous section */
+  padding-top: 2rem !important;
   background: transparent;
 }
 
 .blessings-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 3rem;
+  align-items: flex-start;
 }
 
-/* --- Form --- */
 .blessing-form {
+  flex: 1;
+  min-width: 350px;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  border-radius: 20px;
 }
 
 .form-group {
@@ -48,16 +52,11 @@
   background: rgba(42, 8, 21, 0.6);
   border: 1px solid rgba(212, 175, 55, 0.15);
   border-radius: 8px;
-  color: var(--text-main);
+  color: #fff;
   font-family: var(--font-body);
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   resize: none;
-}
-
-.blessing-input::placeholder {
-  color: var(--text-muted);
-  opacity: 0.6;
 }
 
 .blessing-input:focus {
@@ -91,21 +90,28 @@
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
 }
 
-.thank-you-msg {
-  text-align: center;
-  color: var(--gold-light);
-  font-style: italic;
-  animation: fadeInUp 0.5s ease forwards;
+.blessings-display {
+  flex: 1.5;
+  min-width: 350px;
 }
 
-/* --- Blessings Wall --- */
-.blessings-wall {
-  text-align: center;
+.blessings-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 15px;
 }
 
-.wall-title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+.blessings-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.blessings-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.blessings-scroll::-webkit-scrollbar-thumb {
+  background: var(--gold-accent);
+  border-radius: 10px;
 }
 
 .blessings-grid {
@@ -117,26 +123,12 @@
 .blessing-card {
   padding: 1.5rem;
   text-align: left;
-  position: relative;
+  border-radius: 16px;
   animation: fadeInUp 0.6s ease forwards;
-  opacity: 0;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.blessing-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(212, 175, 55, 0.4);
-}
-
-.blessing-heart-icon {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  color: rgba(255, 23, 68, 0.5);
 }
 
 .blessing-message {
-  color: var(--text-muted);
+  color: #eee;
   font-style: italic;
   line-height: 1.7;
   font-size: 0.95rem;
@@ -153,33 +145,57 @@
   color: var(--gold-light);
   font-family: var(--font-display);
   font-size: 0.85rem;
-  letter-spacing: 1px;
 }
 
 .blessing-date {
-  color: var(--text-muted);
+  color: #aaa;
   font-size: 0.75rem;
-  opacity: 0.6;
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 900px) {
+  .blessings-container {
+    gap: 2rem;
+  }
+  
+  .blessing-form {
+    min-width: 100%;
+    padding: 1.5rem;
+  }
+  
+  .blessings-display {
+    min-width: 100%;
+  }
+  
+  .blessings-scroll {
+    max-height: 450px;
   }
 }
 
-@media (max-width: 768px) {
-  .blessing-form {
-    padding: 1.5rem;
+@media (max-width: 480px) {
+  .blessings-section {
+    padding-top: 1rem !important;
   }
-
-  .blessings-grid {
-    grid-template-columns: 1fr;
+  
+  .blessing-input {
+    font-size: 0.9rem;
+    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+  }
+  
+  .blessing-submit-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .blessing-card {
+    padding: 1.2rem;
+  }
+  
+  .blessing-message {
+    font-size: 0.9rem;
   }
 }
