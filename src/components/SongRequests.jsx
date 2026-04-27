@@ -59,8 +59,8 @@ const SongRequests = () => {
 
   useEffect(() => {
     fetchRequests();
-    // Poll every 10 seconds for new requests (user requested)
-    const interval = setInterval(fetchRequests, 10000);
+    // Poll every 1 second for near-instant updates (user requested)
+    const interval = setInterval(fetchRequests, 1000);
     return () => clearInterval(interval);
   }, [fetchRequests]);
 

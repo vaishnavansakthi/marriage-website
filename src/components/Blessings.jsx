@@ -45,8 +45,8 @@ const Blessings = () => {
 
   useEffect(() => {
     fetchBlessings();
-    // Poll every 10 seconds for new blessings (user requested)
-    const interval = setInterval(fetchBlessings, 10000);
+    // Poll every 1 second for near-instant updates (user requested)
+    const interval = setInterval(fetchBlessings, 1000);
     return () => clearInterval(interval);
   }, []);
 
