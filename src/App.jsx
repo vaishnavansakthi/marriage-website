@@ -10,6 +10,7 @@ import SongRequests from './components/SongRequests';
 import GuestMap from './components/GuestMap';
 import Blessings from './components/Blessings';
 import PhotoWall from './components/PhotoWall';
+import CeremonyAlbums from './components/CeremonyAlbums';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
 import Background from './components/Background';
@@ -67,6 +68,7 @@ function App() {
         <FamilyTree />
         <GuestMap />
         <PhotoWall />
+        <CeremonyAlbums />
         <JourneyMap />
         <Puzzle />
         {/* <Gallery /> */}
