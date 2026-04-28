@@ -71,7 +71,7 @@ function App() {
       <div className="content-wrapper">
         <Hero />
         <Story />
-        <Stats />
+        {/* <Stats /> */}
         <FamilyTree />
         <GuestMap />
         <PhotoWall />
