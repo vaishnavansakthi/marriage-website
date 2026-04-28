@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Hero from './components/Hero';
 import Story from './components/Story';
+import Stats from './components/Stats';
 import FamilyTree from './components/FamilyTree';
 import JourneyMap from './components/JourneyMap';
 import Puzzle from './components/Puzzle';
@@ -70,6 +71,7 @@ function App() {
       <div className="content-wrapper">
         <Hero />
         <Story />
+        <Stats />
         <FamilyTree />
         <GuestMap />
         <PhotoWall />
