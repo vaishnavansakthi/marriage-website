@@ -17,18 +17,20 @@ import Background from './components/Background';
 import Preloader from './components/Preloader';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import Navbar from './components/Navbar';
+import Envelope from './components/Envelope';
 import './index.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [envelopeActive, setEnvelopeActive] = useState(() => !sessionStorage.getItem('hasSeenEnvelope'));
 
   useEffect(() => {
-    if (loading) {
+    if (loading || envelopeActive) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [loading]);
+  }, [loading, envelopeActive]);
   useEffect(() => {
     if (loading) return;
     // Intersection Observer for scroll reveal animations
@@ -62,6 +64,7 @@ function App() {
 
   return (
     <>
+      <Envelope onOpenComplete={() => setEnvelopeActive(false)} />
       <Background />
       <Navbar />
       <div className="content-wrapper">
