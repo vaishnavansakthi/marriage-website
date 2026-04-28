@@ -77,7 +77,7 @@ const Events = () => {
     window.open(googleUrl, '_blank');
   };
   return (
-    <section className="section events-section" id="events">
+    <section className="section events-section" id="events" style={{ zIndex: lightboxIndex !== null ? 20000 : undefined }}>
       <div className="section-header reveal">
         <h2 className="gold-text">Wedding Events</h2>
         <div className="divider"></div>

@@ -35,7 +35,7 @@ const Story = () => {
   }, [lightboxOpen]);
 
   return (
-    <section className="section story-section" id="story">
+    <section className="section story-section" id="story" style={{ zIndex: lightboxOpen ? 20000 : undefined }}>
       <div className="section-header reveal">
         <h2 className="gold-text">Our Journey</h2>
         <div className="divider"></div>
