@@ -7,7 +7,7 @@ const Envelope = ({ onOpenComplete }) => {
 
   // Check if we already showed it this session
   useEffect(() => {
-    const hasSeenEnvelope = localStorage.getItem('hasSeenEnvelope');
+    const hasSeenEnvelope = sessionStorage.getItem('hasSeenEnvelope');
     if (hasSeenEnvelope) {
       onOpenComplete();
     }
@@ -18,7 +18,7 @@ const Envelope = ({ onOpenComplete }) => {
     setIsOpen(true);
 
     // Mark as seen so refresh doesn't show it again immediately
-    localStorage.setItem('hasSeenEnvelope', 'true');
+    sessionStorage.setItem('hasSeenEnvelope', 'true');
 
     // 1. Animation runs (approx 2 seconds)
     // 2. Give user 1.5 seconds to read
