@@ -64,7 +64,7 @@ function App() {
 
   return (
     <>
-      <Envelope onOpenComplete={() => setEnvelopeActive(false)} />
+      {envelopeActive && <Envelope onOpenComplete={() => setEnvelopeActive(false)} />}
       <Background />
       <Navbar />
       <div className="content-wrapper">
