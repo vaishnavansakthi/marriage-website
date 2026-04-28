@@ -53,7 +53,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar \${scrolled ? 'navbar-scrolled' : ''}`}>
+    <>
+      <nav className={`navbar \${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         
         {/* Logo/Names */}
@@ -87,7 +88,9 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      </nav>
+
+      {/* Mobile Menu Dropdown / Overlay */}
       <div className={`mobile-menu \${isOpen ? 'mobile-menu-open' : ''}`}>
         <div className="mobile-menu-links">
           {navLinks.map((link) => (
@@ -102,7 +105,7 @@ const Navbar = () => {
           ))}
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 
