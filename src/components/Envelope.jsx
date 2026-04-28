@@ -17,7 +17,7 @@ const Envelope = ({ onOpenComplete }) => {
   const handleOpen = () => {
     if (isOpen) return;
     setIsOpen(true);
-    
+
     // Mark as seen so refresh doesn't show it again immediately
     sessionStorage.setItem('hasSeenEnvelope', 'true');
 
@@ -29,7 +29,7 @@ const Envelope = ({ onOpenComplete }) => {
       setTimeout(() => {
         onOpenComplete();
       }, 1000); // Wait for fade out
-    }, 2000); // 2 seconds total choreography
+    }, 5000); // 1.9s for animation + 3.1s for reading
   };
 
   if (isHidden) return null;
@@ -37,11 +37,11 @@ const Envelope = ({ onOpenComplete }) => {
   return (
     <div className={`envelope-screen ${isOpen ? 'fade-out' : ''}`}>
       <div className={`envelope-wrapper ${isOpen ? 'open' : ''}`}>
-        
+
         <div className="envelope">
           {/* Back wall of the pocket */}
           <div className="envelope-back"></div>
-          
+
           {/* The letter inside */}
           <div className="envelope-letter">
             <div className="letter-header">
@@ -56,18 +56,18 @@ const Envelope = ({ onOpenComplete }) => {
               <div className="floral right"></div>
             </div>
           </div>
-          
+
           {/* The front pockets that cover the letter */}
           <div className="envelope-front left-flap"></div>
           <div className="envelope-front right-flap"></div>
           <div className="envelope-front bottom-flap"></div>
-          
+
           {/* The top flap that opens on X axis */}
           <div className="envelope-top-flap">
             <div className="envelope-top-flap-inner"></div>
           </div>
 
-          <button 
+          <button
             type="button"
             className={`wax-seal ${isOpen ? 'broken' : ''}`}
             onClick={handleOpen}
