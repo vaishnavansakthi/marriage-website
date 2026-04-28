@@ -126,7 +126,7 @@ const PhotoWall = () => {
     <section className="photo-wall-section" id="moments">
       <div className="section-header reveal">
         <h2 className="gold-text">Social Moments</h2>
-        <p className="subtitle">Share your favorite captures of us!</p>
+        <p className="subtitle">Share your favorite captures!</p>
       </div>
 
       <div className="photo-wall-container">
