@@ -43,16 +43,19 @@ const Envelope = ({ onOpenComplete }) => {
 
           {/* The letter inside */}
           <div className="envelope-letter">
-            <div className="letter-header">
-              <h2 className="gold-text">V & N</h2>
-              <p>Special Invitation</p>
-            </div>
-            <div className="letter-body">
-              <p>We invite you to share our joy!</p>
-            </div>
-            <div className="decorations">
-              <div className="floral left"></div>
-              <div className="floral right"></div>
+            <div className="envelope-letter-border">
+              <div className="letter-header">
+                <h2 className="gold-text beautiful-cursive">Vaishnavan<br/>& Nagadivya</h2>
+                <div className="letter-divider"></div>
+                <p className="subtitle-elegant">Special Invitation</p>
+              </div>
+              <div className="letter-body">
+                <p>We joyfully invite you to share in our celebration of love and togetherness.</p>
+              </div>
+              <div className="decorations">
+                <div className="floral-corner top-left"></div>
+                <div className="floral-corner bottom-right"></div>
+              </div>
             </div>
           </div>
 
