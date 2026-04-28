@@ -248,7 +248,7 @@ const PhotoWall = () => {
 
       {/* Lightbox */}
       {selectedPhoto && (
-        <div className="lightbox" onClick={() => setSelectedPhoto(null)} style={{ zIndex: 3000 }}>
+        <div className="lightbox" onClick={() => setSelectedPhoto(null)}>
           <button className="close-lightbox"><X size={30} /></button>
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
             <img src={selectedPhoto.url} alt={selectedPhoto.caption} />
