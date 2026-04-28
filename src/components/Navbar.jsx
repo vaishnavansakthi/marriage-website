@@ -55,49 +55,49 @@ const Navbar = () => {
   return (
     <>
       <nav className={`navbar \${scrolled ? 'navbar-scrolled' : ''}`}>
-      <div className="navbar-container">
-        
-        {/* Logo/Names */}
-        <div className="navbar-brand" onClick={() => scrollTo('home')}>
-          <span className="brand-v">V</span>
-          <span className="brand-amp">&</span>
-          <span className="brand-n">N</span>
-        </div>
+        <div className="navbar-container">
 
-        {/* Desktop Menu */}
-        <div className="navbar-links">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollTo(link.id)}
-              className={`nav-link \${activeSection === link.id ? 'active' : ''}`}
-            >
-              <link.icon size={16} className="nav-icon" />
-              <span>{link.label}</span>
-            </button>
-          ))}
-        </div>
+          {/* Logo/Names */}
+          <div className="navbar-brand" onClick={() => scrollTo('home')}>
+            <span className="brand-v">V</span>
+            <span className="brand-amp">&</span>
+            <span className="brand-n">N</span>
+          </div>
 
-        {/* Mobile Menu Toggle button */}
-        <button 
-          className="mobile-menu-btn"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          {isOpen ? <X size={28} color="var(--gold-accent)" /> : <Menu size={28} color="var(--gold-accent)" />}
-        </button>
-      </div>
+          {/* Desktop Menu */}
+          <div className="navbar-links">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
+                className={`nav-link \${activeSection === link.id ? 'active' : ''}`}
+              >
+                <link.icon size={16} className="nav-icon" />
+                <span>{link.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Menu Toggle button */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {isOpen ? <X size={28} color="var(--gold-accent)" /> : <Menu size={28} color="var(--gold-accent)" />}
+          </button>
+        </div>
 
       </nav>
 
       {/* Mobile Menu Dropdown / Overlay */}
-      <div className={`mobile-menu \${isOpen ? 'mobile-menu-open' : ''}`}>
+      <div className={`mobile-menu ${isOpen ? 'mobile-menu-open' : ''}`}>
         <div className="mobile-menu-links">
           {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className={`mobile-nav-link \${activeSection === link.id ? 'active' : ''}`}
+              className={`mobile-nav-link ${activeSection === link.id ? 'active' : ''}`}
             >
               <link.icon size={20} className="nav-icon" />
               <span>{link.label}</span>
