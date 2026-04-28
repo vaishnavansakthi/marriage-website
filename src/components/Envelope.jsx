@@ -3,13 +3,12 @@ import './Envelope.css';
 
 const Envelope = ({ onOpenComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   // Check if we already showed it this session
   useEffect(() => {
     const hasSeenEnvelope = sessionStorage.getItem('hasSeenEnvelope');
     if (hasSeenEnvelope) {
-      setIsHidden(true);
       onOpenComplete();
     }
   }, [onOpenComplete]);
@@ -21,21 +20,21 @@ const Envelope = ({ onOpenComplete }) => {
     // Mark as seen so refresh doesn't show it again immediately
     sessionStorage.setItem('hasSeenEnvelope', 'true');
 
-    // 1. Seal bursts + Top Flap opens
-    // 2. Letter slides up
-    // 3. Whole container scales in and fades out
+    // 1. Animation runs (approx 2 seconds)
+    // 2. Give user 3 seconds to read
+    // 3. Trigger fade out
     setTimeout(() => {
-      setIsHidden(true);
+      setIsFadingOut(true);
+      
+      // Wait for the CSS fade-out transition (1.2s) to complete before unmounting
       setTimeout(() => {
         onOpenComplete();
-      }, 1000); // Wait for fade out
-    }, 5000); // 1.9s for animation + 3.1s for reading
+      }, 1200); 
+    }, 5000); 
   };
 
-  if (isHidden) return null;
-
   return (
-    <div className={`envelope-screen ${isOpen ? 'fade-out' : ''}`}>
+    <div className={`envelope-screen ${isFadingOut ? 'fade-out' : ''}`}>
       <div className={`envelope-wrapper ${isOpen ? 'open' : ''}`}>
 
         <div className="envelope">
