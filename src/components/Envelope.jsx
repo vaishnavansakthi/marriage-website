@@ -21,7 +21,7 @@ const Envelope = ({ onOpenComplete }) => {
     sessionStorage.setItem('hasSeenEnvelope', 'true');
 
     // 1. Animation runs (approx 2 seconds)
-    // 2. Give user 3 seconds to read
+    // 2. Give user 1.5 seconds to read
     // 3. Trigger fade out
     setTimeout(() => {
       setIsFadingOut(true);
@@ -30,7 +30,7 @@ const Envelope = ({ onOpenComplete }) => {
       setTimeout(() => {
         onOpenComplete();
       }, 1200); 
-    }, 5000); 
+    }, 3500); 
   };
 
   return (
