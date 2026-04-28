@@ -22,7 +22,10 @@ import './index.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [envelopeActive, setEnvelopeActive] = useState(() => !sessionStorage.getItem('hasSeenEnvelope'));
+  const [envelopeActive, setEnvelopeActive] = useState(() => {
+    // Check localStorage instead of sessionStorage so it persists across tabs
+    return !localStorage.getItem('hasSeenEnvelope');
+  });
 
   useEffect(() => {
     if (loading || envelopeActive) {
