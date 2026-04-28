@@ -49,9 +49,10 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: var(--bg-light); /* #3d1222 */
+  background: #3d1222; /* Lighter inside */
+  background-image: radial-gradient(circle at center, #3d1222 0%, #1f050f 100%);
   border-radius: 4px;
-  box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
   z-index: 1;
 }
 
@@ -60,24 +61,28 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  z-index: 3;
-  /* Slight texture and 3d feel */
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
 }
 
 .bottom-flap {
-  background: linear-gradient(0deg, #2a0815, #3d1222);
-  clip-path: polygon(0 100%, 100% 100%, 50% 55%);
+  background: linear-gradient(0deg, #1f050f 0%, #3d1222 100%);
+  clip-path: polygon(0 100%, 100% 100%, 50% 52%);
+  z-index: 4;
+  /* Gold foil edge + deep drop shadow cast on side flaps */
+  filter: drop-shadow(0 -1px 1px rgba(212, 175, 55, 0.6)) drop-shadow(0 -10px 20px rgba(0, 0, 0, 0.4));
 }
 
 .left-flap {
-  background: linear-gradient(90deg, #1f050f, #2a0815);
-  clip-path: polygon(0 0, 0 100%, 52% 56%);
+  background: linear-gradient(90deg, #1a040d 0%, #2a0815 100%);
+  clip-path: polygon(0 0, 0 100%, 55% 55%);
+  z-index: 3;
+  filter: drop-shadow(5px 0 15px rgba(0, 0, 0, 0.5));
 }
 
 .right-flap {
-  background: linear-gradient(-90deg, #1f050f, #2a0815);
-  clip-path: polygon(100% 0, 100% 100%, 48% 56%);
+  background: linear-gradient(-90deg, #1a040d 0%, #2a0815 100%);
+  clip-path: polygon(100% 0, 100% 100%, 45% 55%);
+  z-index: 3;
+  filter: drop-shadow(-5px 0 15px rgba(0, 0, 0, 0.5));
 }
 
 /* Top Flap Container (Rotates) */
@@ -85,15 +90,18 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  z-index: 4;
+  z-index: 5;
   transform-origin: top center;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
   transform-style: preserve-3d;
+  /* Crucial: Outer drop shadow on the flap container itself so it rotates perfectly */
+  filter: drop-shadow(0 2px 1px rgba(212, 175, 55, 0.7)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
 }
 
 .envelope-wrapper.open .envelope-top-flap {
   transform: rotateX(180deg);
   z-index: 0;
+  filter: drop-shadow(0 0px 0px transparent); /* Kill shadow when flipped back */
 }
 
 /* Top flap actual shape */
@@ -101,8 +109,8 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: linear-gradient(180deg, #3d1222, #1f050f);
-  clip-path: polygon(0 0, 100% 0, 50% 65%);
+  background: linear-gradient(180deg, #3d1222 0%, #1f050f 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -113,8 +121,8 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: #4d182b; /* a lighter burgundy for the inside flap */
-  clip-path: polygon(0 0, 100% 0, 50% 65%);
+  background: linear-gradient(0deg, #4d182b 0%, #2a0815 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
   transform: rotateX(180deg);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
