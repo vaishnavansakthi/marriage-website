@@ -2,8 +2,8 @@ import React from 'react';
 import { BookOpen, ExternalLink, Download } from 'lucide-react';
 import weddingAlbumImg from '../assets/family.jpeg';
 import preWeddingAlbumImg from '../assets/couple.jpeg';
-import weddingPdf from '../assets/divya vaishnavan10-4.pdf';
-import preWeddingPdf from '../assets/Divya.pdf';
+import weddingPdf from '../assets/Divya.pdf';
+import preWeddingPdf from '../assets/divya vaishnavan10-4.pdf';
 import './CeremonyAlbums.css';
 
 const albums = [

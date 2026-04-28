@@ -16,6 +16,7 @@ import MusicPlayer from './components/MusicPlayer';
 import Background from './components/Background';
 import Preloader from './components/Preloader';
 import ThemeSwitcher from './components/ThemeSwitcher';
+import Navbar from './components/Navbar';
 import './index.css';
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
   return (
     <>
       <Background />
+      <Navbar />
       <div className="content-wrapper">
         <Hero />
         <Story />
