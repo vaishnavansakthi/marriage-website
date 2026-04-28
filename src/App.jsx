@@ -22,7 +22,7 @@ import './index.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [envelopeActive, setEnvelopeActive] = useState(() => !sessionStorage.getItem('hasSeenEnvelope'));
+  const [envelopeActive, setEnvelopeActive] = useState(true);
 
   useEffect(() => {
     if (loading || envelopeActive) {
