@@ -208,7 +208,7 @@ export default function FamilyTree() {
   }), [isMobile]);
 
   return (
-    <section className="family-tree-section reveal" style={{ padding: isMobile ? '20px 10px' : '80px 20px', maxWidth: '1200px', margin: '0 auto' }}>
+    <section className="family-tree-section reveal" id="family-tree" style={{ padding: isMobile ? '20px 10px' : '80px 20px', maxWidth: '1200px', margin: '0 auto' }}>
       <div className="section-header reveal">
         <h2 className="gold-text">Family Heritage</h2>
         <div className="divider"></div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useSectionTracking from './utils/useSectionTracking';
 import Hero from './components/Hero';
 import Story from './components/Story';
 import Stats from './components/Stats';
@@ -24,6 +25,9 @@ import './index.css';
 function App() {
   const [loading, setLoading] = useState(true);
   const [envelopeActive, setEnvelopeActive] = useState(() => !sessionStorage.getItem('hasSeenEnvelope'));
+
+  // Track section visibility & engagement in Google Analytics
+  useSectionTracking();
 
   useEffect(() => {
     if (loading || envelopeActive) {
