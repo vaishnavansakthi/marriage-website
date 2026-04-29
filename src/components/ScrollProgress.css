@@ -233,6 +233,10 @@
   position: relative;
   max-width: 480px;
   width: 92%;
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: linear-gradient(145deg, rgba(61, 18, 34, 0.9), rgba(26, 7, 16, 0.95));
   border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: 24px;
@@ -271,6 +275,8 @@
 
 .secret-photo-image {
   width: 100%;
+  max-height: 40vh;
+  object-fit: cover;
   border-radius: 16px;
   border: 2px solid rgba(212, 175, 55, 0.25);
   margin-bottom: 20px;
@@ -375,12 +381,20 @@
   }
 
   /* Secret Photo Modal */
+  .secret-photo-overlay {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 16px;
+    overflow-y: auto;
+  }
+
   .secret-photo-card {
     padding: 20px 16px;
-    margin: 12px;
+    margin: 0;
     border-radius: 20px;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: 85vh;
+    max-height: 85dvh;
+    width: 100%;
   }
 
   .secret-photo-badge {
@@ -392,7 +406,8 @@
 
   .secret-photo-image {
     border-radius: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    max-height: 30vh;
   }
 
   .secret-photo-title {
@@ -404,7 +419,7 @@
   .secret-photo-message {
     font-size: 0.8rem;
     line-height: 1.65;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     text-align: center;
     padding: 0 4px;
   }
@@ -412,6 +427,11 @@
   .secret-photo-close {
     padding: 10px 28px;
     font-size: 0.78rem;
+  }
+
+  /* Reduce confetti canvas layer on mobile */
+  .confetti-canvas {
+    will-change: auto;
   }
 }
 
@@ -441,8 +461,20 @@
     font-size: 0.58rem;
   }
 
+  .secret-photo-overlay {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 10px;
+  }
+
   .secret-photo-card {
     padding: 16px 12px;
+    max-height: 88vh;
+    max-height: 88dvh;
+  }
+
+  .secret-photo-image {
+    max-height: 25vh;
   }
 
   .secret-photo-title {

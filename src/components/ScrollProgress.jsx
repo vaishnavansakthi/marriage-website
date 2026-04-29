@@ -43,7 +43,10 @@ function launchConfetti(canvasEl, durationMs = 3000) {
     '#ff1744', '#ff6d00', '#e040fb', '#FFFFFF',
   ];
 
-  const pieces = Array.from({ length: 120 }, () => ({
+  const isMobile = window.innerWidth <= 768;
+  const particleCount = isMobile ? 50 : 120;
+
+  const pieces = Array.from({ length: particleCount }, () => ({
     x: Math.random() * W,
     y: Math.random() * H * -1,
     w: 4 + Math.random() * 6,
@@ -113,6 +116,31 @@ const ScrollProgress = () => {
   const [activeToast, setActiveToast] = useState(null);
   const [showSecretPhoto, setShowSecretPhoto] = useState(false);
   const [badgeVisible, setBadgeVisible] = useState(false);
+
+  /* ─── Lock body scroll when modal is open ─── */
+  useEffect(() => {
+    if (showSecretPhoto) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showSecretPhoto]);
 
   const canvasRef = useRef(null);
   const toastTimerRef = useRef(null);
