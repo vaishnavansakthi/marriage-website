@@ -10,7 +10,7 @@ import './LiveStream.css';
 // ── Configuration ──
 // 🧪 TEST MODE: Set to 'live', 'ended', or false to disable
 // Remove or set to false before going to production!
-const TEST_MODE = 'live'; // 'live' | 'ended' | 'upcoming' | false
+const TEST_MODE = false; // 'live' | 'ended' | 'upcoming' | false
 
 // Replace with your actual YouTube Live stream ID when available
 const YOUTUBE_STREAM_ID = '';
