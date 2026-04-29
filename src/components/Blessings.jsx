@@ -29,6 +29,7 @@ const Blessings = () => {
             const msg = (row.Message || row.message || '').toString();
             return msg && 
                    !msg.startsWith('🎵 SONG REQUEST:') && 
+                   !msg.startsWith('📺 LIVE CHAT:') &&
                    !msg.includes('PHOTO:') && 
                    !msg.includes('PIN:');
           })
