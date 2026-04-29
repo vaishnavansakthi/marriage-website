@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, BookOpen, Clock, Heart, Camera, BookmarkPlus } from 'lucide-react';
+import { Menu, X, Home, BookOpen, Clock, Heart, Camera, BookmarkPlus, Video } from 'lucide-react';
 import './Navbar.css';
 import { sendEvent } from '../utils/analytics';
 
@@ -12,6 +12,7 @@ const Navbar = () => {
     { id: 'home', label: 'Home', icon: Home },
     { id: 'story', label: 'Our Story', icon: BookOpen },
     { id: 'events', label: 'Events', icon: Clock },
+    { id: 'livestream', label: 'Live', icon: Video },
     { id: 'moments', label: 'Moments', icon: Camera },
     { id: 'albums', label: 'Albums', icon: BookOpen },
     { id: 'playlist', label: 'Playlist', icon: Heart },

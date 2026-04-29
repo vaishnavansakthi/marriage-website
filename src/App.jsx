@@ -21,6 +21,7 @@ import ThemeSwitcher from './components/ThemeSwitcher';
 import Navbar from './components/Navbar';
 import Envelope from './components/Envelope';
 import ScrollProgress from './components/ScrollProgress';
+import LiveStream from './components/LiveStream';
 import './index.css';
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
         <Puzzle />
         {/* <Gallery /> */}
         <Events />
+        <LiveStream />
         <Vendors />
         <SongRequests />
         <Blessings />
