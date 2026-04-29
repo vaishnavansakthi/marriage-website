@@ -13,7 +13,7 @@ import './LiveStream.css';
 const TEST_MODE = 'live'; // 'live' | 'ended' | 'upcoming' | false
 
 // Replace with your actual YouTube Live stream ID when available
-const YOUTUBE_STREAM_ID = 'tjnLo9JHrxA?si=EiSas5fsh-khhzCb';
+const YOUTUBE_STREAM_ID = '';
 const WEDDING_DATE = new Date('June 7, 2026 08:00:00').getTime();
 const WEDDING_END = new Date('June 7, 2026 09:30:00').getTime();
 
