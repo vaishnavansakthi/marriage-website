@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Camera, Send, Loader2, Image as ImageIcon, X, Maximize2 } from 'lucide-react';
 import { formatRelativeTime } from '../utils/time';
 import './PhotoWall.css';
+import { sendEvent } from '../utils/analytics';
 
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqMTfBAqY_G1V6bzmIgNzoIcUIv3cm4tF0BGsNb41pKYzOJTAPdmoW-mqpxziDIzXb/exec';
 const IMGBB_API_KEY = '8b460f61dacb7fab7793104b49a91d19'; // Placeholder - User should provide this or I'll ask again
@@ -113,6 +114,7 @@ const PhotoWall = () => {
       setSelectedFile(null);
       setPreviewUrl(null);
       setCaption('');
+      sendEvent('photo_upload', { event_category: 'photo_wall', event_label: name });
       fetchPhotos();
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
@@ -179,7 +181,7 @@ const PhotoWall = () => {
           ) : photos.length > 0 ? (
             <>
               {photos.slice(0, 6).map((item) => (
-                <div key={item.id} className="photo-item glass-card" onClick={() => setSelectedPhoto(item)}>
+                <div key={item.id} className="photo-item glass-card" onClick={() => { setSelectedPhoto(item); sendEvent('photo_lightbox_open', { event_category: 'photo_wall', event_label: item.caption || item.name }); }}>
                   <div className="image-wrapper">
                     <img src={item.url} alt={item.caption} loading="lazy" />
                     <div className="photo-overlay">
@@ -206,7 +208,7 @@ const PhotoWall = () => {
 
         {photos.length > 6 && (
           <div className="view-all-container">
-            <button className="btn-premium-ghost" onClick={() => setShowAll(true)}>
+            <button className="btn-premium-ghost" onClick={() => { setShowAll(true); sendEvent('photo_gallery_open', { event_category: 'photo_wall', event_label: `Explore All ${photos.length} Moments` }); }}>
               <ImageIcon size={20} />
               <span>Explore All {photos.length} Moments</span>
             </button>

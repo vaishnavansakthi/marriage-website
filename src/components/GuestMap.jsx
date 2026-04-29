@@ -4,6 +4,7 @@ import L from 'leaflet';
 import { MapPin, Send, Loader2, Heart, Search } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import './GuestMap.css';
+import { sendEvent } from '../utils/analytics';
 
 // Fix for default marker icons in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -122,6 +123,7 @@ const GuestMap = () => {
       setSubmitted(true);
       setName('');
       setCity('');
+      sendEvent('guest_pin_submitted', { event_category: 'guest_map', event_label: shortCity });
       fetchPins();
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
@@ -139,6 +141,7 @@ const GuestMap = () => {
   const focusOnPin = (pin) => {
     setMapCenter(pin.position);
     setMapZoom(8);
+    sendEvent('guest_pin_focus', { event_category: 'guest_map', event_label: `${pin.name} - ${pin.city}` });
   };
 
   return (

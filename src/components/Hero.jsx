@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import './Hero.css';
+import { sendEvent } from '../utils/analytics';
 
 const KAVITHAI_QUOTE =
   '"Nodi nodi aai sithari pona en manadhai serka vaika vandha penn nee dhaan endru tharindha pinbu en manam siragadiken ndradheyyy"';
@@ -96,6 +97,7 @@ const Hero = () => {
   }, []);
 
   const scrollToStory = () => {
+    sendEvent('scroll_to_story', { event_category: 'hero', event_label: 'Chevron Click' });
     const storySection = document.getElementById('story');
     if (storySection) {
       storySection.scrollIntoView({ behavior: 'smooth' });
@@ -103,6 +105,7 @@ const Hero = () => {
   };
 
   const printInvite = () => {
+    sendEvent('download_invitation', { event_category: 'hero', event_label: 'Print Invite Button' });
     const html = `
       <!doctype html>
       <html>

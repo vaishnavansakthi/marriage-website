@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Puzzle.css';
+import { sendEvent } from '../utils/analytics';
 
 const GRID_SIZE = 3; // 3x3 grid
 const TOTAL_TILES = GRID_SIZE * GRID_SIZE;
@@ -55,6 +56,7 @@ const Puzzle = () => {
     setMoves(0);
     setSeconds(0);
     setGameStarted(true);
+    sendEvent('puzzle_start', { event_category: 'puzzle', event_label: 'Game Started' });
   };
 
   const handleTileClick = (index) => {
@@ -78,6 +80,7 @@ const Puzzle = () => {
     const solved = currentTiles.every((tile, index) => tile === index);
     if (solved) {
       setIsSolved(true);
+      sendEvent('puzzle_solved', { event_category: 'puzzle', event_label: 'Puzzle Completed', value: seconds, moves: moves });
       if (!bestTime || seconds < parseInt(bestTime)) {
         setBestTime(seconds.toString());
         localStorage.setItem('puzzle-best-time', seconds.toString());
@@ -110,7 +113,7 @@ const Puzzle = () => {
             <div className="teaser-image-wrapper">
                 <img src="/engage.jpeg" alt="Engagement Preview" className="teaser-image" />
                 <div className="teaser-overlay">
-                    <button className="btn-gold play-trigger-btn" onClick={() => setIsOpen(true)}>
+                    <button className="btn-gold play-trigger-btn" onClick={() => { setIsOpen(true); sendEvent('puzzle_open', { event_category: 'puzzle', event_label: 'Play Puzzle Modal' }); }}>
                         PLAY PUZZLE
                     </button>
                 </div>

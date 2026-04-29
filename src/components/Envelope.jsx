@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Envelope.css';
+import { sendEvent } from '../utils/analytics';
 
 const Envelope = ({ onOpenComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,7 @@ const Envelope = ({ onOpenComplete }) => {
   const handleOpen = () => {
     if (isOpen) return;
     setIsOpen(true);
+    sendEvent('envelope_open', { event_category: 'envelope', event_label: 'Wax Seal Tapped' });
 
     // Mark as seen so refresh doesn't show it again immediately
     sessionStorage.setItem('hasSeenEnvelope', 'true');

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Music } from 'lucide-react';
 import './MusicPlayer.css';
+import { sendEvent } from '../utils/analytics';
 
 const MusicPlayer = () => {
   const [expanded, setExpanded] = useState(false);
@@ -27,7 +28,7 @@ const MusicPlayer = () => {
       {/* Compact toggle button for very small screens */}
       <button
         className="music-toggle-button"
-        onClick={() => setExpanded((s) => !s)}
+        onClick={() => { setExpanded((s) => !s); sendEvent('music_player_toggle', { event_category: 'music', event_label: expanded ? 'Collapsed' : 'Expanded' }); }}
         aria-label={expanded ? 'Close music player' : 'Open music player'}
       >
         <Music size={18} />

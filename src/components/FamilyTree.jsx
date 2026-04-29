@@ -2,6 +2,7 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text, Float, PerspectiveCamera, Stars, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
+import { sendEvent } from '../utils/analytics';
 
 const familyData = {
   name: "Blood Roots",
@@ -269,7 +270,7 @@ export default function FamilyTree() {
         )}
 
         <button 
-          onClick={() => setIsGlobalExpanded(!isGlobalExpanded)}
+          onClick={() => { setIsGlobalExpanded(!isGlobalExpanded); sendEvent('family_tree_toggle_all', { event_category: 'family_tree', event_label: isGlobalExpanded ? 'Collapse All' : 'View All' }); }}
           className="btn-gold"
           style={{ 
             position: 'absolute', 

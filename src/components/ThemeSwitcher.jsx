@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Palette, Sun, Moon } from 'lucide-react';
 import './ThemeSwitcher.css';
+import { sendEvent } from '../utils/analytics';
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useState(localStorage.getItem('wedding-theme') || 'royal-gold');
@@ -34,6 +35,7 @@ const ThemeSwitcher = () => {
             onClick={() => {
               setTheme(t.id);
               setIsOpen(false);
+              sendEvent('theme_switch', { event_category: 'theme', event_label: t.name });
             }}
           >
             <div className={`theme-preview ${t.id}`}></div>

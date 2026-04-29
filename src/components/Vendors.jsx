@@ -1,5 +1,6 @@
 import React from 'react';
 import './Vendors.css';
+import { sendEvent } from '../utils/analytics';
 
 const vendors = [
   {
@@ -87,19 +88,19 @@ const Vendors = () => {
             {v.notes && <p className="vendor-notes">For: {v.notes}.</p>}
             {v.phone && (
               <p className="vendor-phone" style={{marginTop: '0.6rem', color: 'var(--text-muted)'}}>
-                <strong>Contact:</strong> <a href={`tel:${v.phone}`}>{v.phone}</a>
+                <strong>Contact:</strong> <a href={`tel:${v.phone}`} onClick={() => sendEvent('vendor_call', { event_category: 'vendors', event_label: v.vendorName })}>{v.phone}</a>
               </p>
             )}
 
             {(v.instagram || v.youtube) && (
               <div className="vendor-social" style={{marginTop: '0.5rem'}}>
                 {v.instagram && (
-                  <a href={v.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-link">
+                  <a href={v.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="social-link" onClick={() => sendEvent('vendor_social_click', { event_category: 'vendors', event_label: `${v.vendorName} - Instagram` })}>
                     <SocialIcon type="instagram" />
                   </a>
                 )}
                 {v.youtube && (
-                  <a href={v.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="social-link">
+                  <a href={v.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="social-link" onClick={() => sendEvent('vendor_social_click', { event_category: 'vendors', event_label: `${v.vendorName} - YouTube` })}>
                     <SocialIcon type="youtube" />
                   </a>
                 )}

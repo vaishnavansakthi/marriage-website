@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Send, User, MessageSquare, Search } from 'lucide-react';
 import { formatRelativeTime } from '../utils/time';
 import './Blessings.css';
+import { sendEvent } from '../utils/analytics';
 
 // Replace this with your actual Google Apps Script URL after setup
 // Updated to the new working script URL
@@ -105,6 +106,7 @@ const Blessings = () => {
     setMessage('');
     setSending(false);
     setSubmitted(true);
+    sendEvent('blessing_submitted', { event_category: 'blessings', event_label: name.trim() });
 
     setTimeout(() => setSubmitted(false), 3000);
   };

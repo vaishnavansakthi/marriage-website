@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, BookOpen, Clock, Heart, Camera, BookmarkPlus } from 'lucide-react';
 import './Navbar.css';
+import { sendEvent } from '../utils/analytics';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +48,7 @@ const Navbar = () => {
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     if (element) {
+      sendEvent('nav_click', { event_category: 'navigation', event_label: id });
       element.scrollIntoView({ behavior: 'smooth' });
       setIsOpen(false);
     }

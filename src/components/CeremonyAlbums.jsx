@@ -5,6 +5,7 @@ import preWeddingAlbumImg from '../assets/couple.jpeg';
 import weddingPdf from '../assets/Divya.pdf';
 import preWeddingPdf from '../assets/divya vaishnavan10-4.pdf';
 import './CeremonyAlbums.css';
+import { sendEvent } from '../utils/analytics';
 
 const albums = [
   {
@@ -52,6 +53,7 @@ const CeremonyAlbums = () => {
                   rel="noopener noreferrer"
                   className="btn-premium"
                   style={{ width: '100%', textDecoration: 'none' }}
+                  onClick={() => sendEvent('album_view_online', { event_category: 'albums', event_label: `${album.title} - ${album.type}` })}
                 >
                   <ExternalLink size={18} />
                   <span>View Online</span>
@@ -61,6 +63,7 @@ const CeremonyAlbums = () => {
                   download
                   className="btn-premium-ghost"
                   style={{ width: '100%', textDecoration: 'none' }}
+                  onClick={() => sendEvent('album_download', { event_category: 'albums', event_label: `${album.title} - ${album.type}` })}
                 >
                   <Download size={18} />
                   <span>Download PDF</span>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import './Story.css';
 import './Gallery.css';
+import { sendEvent } from '../utils/analytics';
 
 const STORY_HERO = {
   src: '/engage.jpeg',
@@ -20,6 +21,7 @@ const Story = () => {
   const openLightbox = () => {
     setLightboxOpen(true);
     document.body.style.overflow = 'hidden';
+    sendEvent('story_photo_lightbox', { event_category: 'story', event_label: 'Open Photo' });
   };
 
   useEffect(() => {
@@ -104,7 +106,7 @@ const Story = () => {
 
       {!showFullStory && (
         <div className="story-action">
-          <button className="expand-story-btn" onClick={() => setShowFullStory(true)}>
+          <button className="expand-story-btn" onClick={() => { setShowFullStory(true); sendEvent('expand_story', { event_category: 'story', event_label: 'Unfold Next Chapter' }); }}>
             Unfold Our Next Chapter
           </button>
         </div>

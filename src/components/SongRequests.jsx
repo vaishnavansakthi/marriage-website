@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Music, Send, User, Disc, RefreshCw, Search, Loader2 } from 'lucide-react';
 import { formatRelativeTime } from '../utils/time';
 import './SongRequests.css';
+import { sendEvent } from '../utils/analytics';
 
 // Using the same script URL as Blessings
 // Updated to the new working script URL
@@ -115,6 +116,7 @@ const SongRequests = () => {
     setMovie('');
     setSending(false);
     setSubmitted(true);
+    sendEvent('song_request_submitted', { event_category: 'playlist', event_label: song.trim(), movie: movie.trim() });
 
     setTimeout(() => setSubmitted(false), 5000);
   };
