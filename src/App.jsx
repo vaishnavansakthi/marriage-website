@@ -87,7 +87,7 @@ function App() {
         <Puzzle />
         {/* <Gallery /> */}
         <Events />
-        <LiveStream />
+        {/* <LiveStream /> */}
         <Vendors />
         <SongRequests />
         <Blessings />
