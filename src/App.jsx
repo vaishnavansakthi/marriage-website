@@ -20,6 +20,7 @@ import Preloader from './components/Preloader';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import Navbar from './components/Navbar';
 import Envelope from './components/Envelope';
+import ScrollProgress from './components/ScrollProgress';
 import './index.css';
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
       {envelopeActive && <Envelope onOpenComplete={() => setEnvelopeActive(false)} />}
       <Background />
       <Navbar />
+      <ScrollProgress />
       <div className="content-wrapper">
         <Hero />
         <Story />

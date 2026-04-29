@@ -1,0 +1,356 @@
+/* ============================================
+   SCROLL PROGRESS BAR + MILESTONE REWARDS
+   ============================================ */
+
+/* --- Progress Bar Track --- */
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(212, 175, 55, 0.08);
+  z-index: 10001; /* Above navbar (9999) */
+  pointer-events: none;
+}
+
+.scroll-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    var(--gold-accent) 0%,
+    var(--gold-light) 40%,
+    var(--gold-accent) 70%,
+    #fff8dc 100%
+  );
+  background-size: 200% 100%;
+  animation: progressShimmer 3s ease infinite;
+  border-radius: 0 2px 2px 0;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.5), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes progressShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Glow at the leading edge */
+.scroll-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 20px;
+  height: 8px;
+  background: radial-gradient(ellipse, rgba(212, 175, 55, 0.8), transparent);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* --- Milestone Markers --- */
+.scroll-milestone-markers {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 10002;
+  pointer-events: none;
+}
+
+.milestone-dot {
+  position: absolute;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(160, 174, 192, 0.3);
+  border: 1.5px solid rgba(160, 174, 192, 0.4);
+  transform: translateX(-50%);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.milestone-dot[data-reached="true"] {
+  background: var(--gold-accent);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 0 25px rgba(212, 175, 55, 0.3);
+  transform: translateX(-50%) scale(1.4);
+}
+
+.milestone-dot[data-reached="true"]::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6px;
+  color: #1a0510;
+  font-weight: 700;
+}
+
+/* --- Percentage Badge (visible on hover area) --- */
+.scroll-progress-badge {
+  position: fixed;
+  top: 6px;
+  right: 16px;
+  z-index: 10003;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--gold-accent);
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.scroll-progress-badge.visible {
+  opacity: 0.7;
+  transform: translateY(0);
+}
+
+/* --- Milestone Toast Notification --- */
+.milestone-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  z-index: 10010;
+  background: rgba(26, 7, 16, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(212, 175, 55, 0.1);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  opacity: 0;
+  pointer-events: none;
+  max-width: 90vw;
+}
+
+.milestone-toast.toast-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.milestone-toast-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  animation: toastIconPop 0.5s ease 0.3s both;
+}
+
+@keyframes toastIconPop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.milestone-toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.milestone-toast-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+
+.milestone-toast-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.milestone-toast-action {
+  background: linear-gradient(135deg, var(--gold-accent), #B8860B);
+  color: #1a0510;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.milestone-toast-action:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* --- Confetti Canvas --- */
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10005;
+  pointer-events: none;
+}
+
+/* --- Secret Photo Modal (100% reward) --- */
+.secret-photo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10020;
+  background: rgba(10, 2, 6, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.secret-photo-overlay.modal-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.secret-photo-card {
+  position: relative;
+  max-width: 480px;
+  width: 92%;
+  background: linear-gradient(145deg, rgba(61, 18, 34, 0.9), rgba(26, 7, 16, 0.95));
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(212, 175, 55, 0.1);
+  transform: scale(0.85) translateY(40px);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.secret-photo-overlay.modal-open .secret-photo-card {
+  transform: scale(1) translateY(0);
+}
+
+.secret-photo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 30px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+}
+
+.secret-photo-badge-icon {
+  font-size: 0.9rem;
+}
+
+.secret-photo-image {
+  width: 100%;
+  border-radius: 16px;
+  border: 2px solid rgba(212, 175, 55, 0.25);
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  animation: secretPhotoReveal 0.8s ease 0.3s both;
+}
+
+@keyframes secretPhotoReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+.secret-photo-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.secret-photo-message {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.secret-photo-close {
+  background: linear-gradient(135deg, var(--gold-accent), #B8860B);
+  color: #1a0510;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secret-photo-close:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .milestone-toast {
+    padding: 12px 18px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .milestone-toast-title {
+    font-size: 0.75rem;
+  }
+
+  .milestone-toast-subtitle {
+    font-size: 0.65rem;
+  }
+
+  .milestone-toast-action {
+    padding: 6px 14px;
+    font-size: 0.6rem;
+  }
+
+  .secret-photo-card {
+    padding: 24px 20px;
+  }
+
+  .secret-photo-title {
+    font-size: 1.1rem;
+  }
+}
